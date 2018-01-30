@@ -19,6 +19,8 @@ class Game
 
 	sf::RenderWindow m_window;
 	Player thePlayer;
+	sf::Sprite m_background;
+	sf::Texture texture;
 
 public:
 

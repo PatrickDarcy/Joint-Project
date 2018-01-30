@@ -46,6 +46,12 @@ Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cas
 , thePlayer{}
 // Default constructor
 {
+	if (!texture.loadFromFile("ASSETS/IMAGES/bg.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	m_background.setTexture(texture);
+	m_background.setPosition(sf::Vector2f{ 0,0 });
 }
 
 void Game::loadContent()
@@ -101,6 +107,8 @@ void Game::run()
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
+	thePlayer.boundaryCheck();
+
 	// get keyboard input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
@@ -128,6 +136,7 @@ void Game::draw()
 {
 	// Clear the screen and draw your game sprites
 	m_window.clear();
+	m_window.draw(m_background);
 	thePlayer.draw(m_window);
 	m_window.display();
 }
