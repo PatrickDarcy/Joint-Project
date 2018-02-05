@@ -26,21 +26,49 @@ void Enemy::enemyFollow(sf::Vector2f t_playerLocation)
 	{
 		m_enemyX += m_enemySpeed;
 		m_enemyBody.setPosition(m_enemyX, m_enemyY);
+
+		if (!m_enemyRight.loadFromFile("ASSETS/IMAGES/enemy1Right.png"))
+		{
+			std::cout << "error" << std::endl;
+		}
+		m_enemyBody.setTexture(m_enemyRight);
+		m_enemyBody.setPosition(sf::Vector2f{ m_enemyX,m_enemyY });
 	}
 	if (m_enemyX > t_playerLocation.x)
 	{
 		m_enemyX -= m_enemySpeed;
 		m_enemyBody.setPosition(m_enemyX, m_enemyY);
+
+		if (!m_enemyLeft.loadFromFile("ASSETS/IMAGES/enemy1Left.png"))
+		{
+			std::cout << "error" << std::endl;
+		}
+		m_enemyBody.setTexture(m_enemyLeft);
+		m_enemyBody.setPosition(sf::Vector2f{ m_enemyX,m_enemyY });
 	}
 	if (m_enemyY < t_playerLocation.y)
 	{
 		m_enemyY += m_enemySpeed;
 		m_enemyBody.setPosition(m_enemyX, m_enemyY);
+
+		if (!m_enemyDown.loadFromFile("ASSETS/IMAGES/enemy1Down.png"))
+		{
+			std::cout << "error" << std::endl;
+		}
+		m_enemyBody.setTexture(m_enemyDown);
+		m_enemyBody.setPosition(sf::Vector2f{ m_enemyX,m_enemyY });
 	}
 	if (m_enemyY > t_playerLocation.y)
 	{
 		m_enemyY -= m_enemySpeed;
 		m_enemyBody.setPosition(m_enemyX, m_enemyY);
+
+		if (!m_enemyUp.loadFromFile("ASSETS/IMAGES/enemy1Up.png"))
+		{
+			std::cout << "error" << std::endl;
+		}
+		m_enemyBody.setTexture(m_enemyUp);
+		m_enemyBody.setPosition(sf::Vector2f{ m_enemyX,m_enemyY });
 	}
 
 	

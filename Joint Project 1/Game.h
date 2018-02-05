@@ -3,6 +3,7 @@
 
 #include "Player.h"   // include Player header file
 #include "Enemy.h"	// include Enemy header file
+#include "Enemy1.h"
 
 #include "SFML/Graphics.hpp" 
 #include <iostream>
@@ -21,6 +22,7 @@ class Game
 	sf::RenderWindow m_window;
 	Player m_thePlayer;
 	Enemy m_enemy1;
+	Enemy1 m_enemy2;
 	sf::Sprite m_background;
 	sf::Texture m_texture;
 

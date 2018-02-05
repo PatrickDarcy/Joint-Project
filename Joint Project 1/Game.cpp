@@ -3,7 +3,7 @@
 // Date: 29/01/18
 // Time taken: 
 //---------------------------------------------------------------------------
-// Project description: TEMPLATE
+// Project description: Zelda remake
 // ---------------------------------------------------------------------------
 // Known Bugs:
 // ?
@@ -120,5 +120,6 @@ void Game::draw()
 	m_window.draw(m_background);
 	m_thePlayer.draw(m_window);
 	m_enemy1.draw(m_window);
+	m_enemy2.draw(m_window);
 	m_window.display();
 }
