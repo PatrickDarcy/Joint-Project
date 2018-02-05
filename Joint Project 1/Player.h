@@ -2,27 +2,25 @@
 #pragma once
 
 #include<SFML\Graphics.hpp>
+#include"Globals.h"
 #include<iostream>
 
 class Player
 {
 	// private data members
-	sf::Sprite playerBody;
-	sf::Texture playerLeft;
-	sf::Texture playerRight;
-	sf::Texture playerUp;
-	sf::Texture playerDown;
+	sf::Sprite m_playerBody;
+	sf::Texture m_playerLeft;
+	sf::Texture m_playerRight;
+	sf::Texture m_playerUp;
+	sf::Texture m_playerDown;
 
-	float speed;
-	float playerX;
-	float playerY;
+	float m_speed;
+	float m_playerX;
+	float m_playerY;
 
 public:
 	Player();
-	const float LEFT_BOARDER = 20;
-	const float RIGHT_BOARDER = 360;
-	const float BOTTOM_BOARDER = 280;
-	const float TOP_BOARDER = 80;
+
 
 	sf::Sprite getBody();
 	void update();
@@ -32,4 +30,5 @@ public:
 	void moveUp();
 	void moveDown();
 	void boundaryCheck();
+	sf::Vector2f getPosition();
 };

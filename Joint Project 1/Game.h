@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Player.h"   // include Player header file
+#include "Enemy.h"	// include Enemy header file
 
 #include "SFML/Graphics.hpp" 
 #include <iostream>
@@ -18,9 +19,10 @@ class Game
 	// array of enemy objects etc.
 
 	sf::RenderWindow m_window;
-	Player thePlayer;
+	Player m_thePlayer;
+	Enemy m_enemy1;
 	sf::Sprite m_background;
-	sf::Texture texture;
+	sf::Texture m_texture;
 
 public:
 

@@ -43,14 +43,14 @@ int main()
 }
 
 Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT)), "Joint Project Game", sf::Style::Default)
-, thePlayer{}
+, m_thePlayer{}
 // Default constructor
 {
-	if (!texture.loadFromFile("ASSETS/IMAGES/bg.png"))
+	if (!m_texture.loadFromFile("ASSETS/IMAGES/bg.png"))
 	{
 		std::cout << "error" << std::endl;
 	}
-	m_background.setTexture(texture);
+	m_background.setTexture(m_texture);
 	m_background.setPosition(sf::Vector2f{ 0,0 });
 }
 
@@ -107,28 +107,9 @@ void Game::run()
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
-	thePlayer.boundaryCheck();
-
-	// get keyboard input
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		thePlayer.moveLeft();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		thePlayer.moveRight();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		thePlayer.moveUp();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		thePlayer.moveDown();
-	}
-
-	// update any game variables here ...
-
+	m_thePlayer.boundaryCheck();
+	m_thePlayer.update();
+	m_enemy1.enemyFollow(m_thePlayer.getPosition());
 }
 
 void Game::draw()
@@ -137,6 +118,7 @@ void Game::draw()
 	// Clear the screen and draw your game sprites
 	m_window.clear();
 	m_window.draw(m_background);
-	thePlayer.draw(m_window);
+	m_thePlayer.draw(m_window);
+	m_enemy1.draw(m_window);
 	m_window.display();
 }

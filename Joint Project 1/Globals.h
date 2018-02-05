@@ -10,3 +10,8 @@ const int static SOUTH = 4;
 
 const float SCREEN_WIDTH = 400;   // the size of the screen in pixels used in the game
 const float SCREEN_HEIGHT = 320;
+
+const float LEFT_BOARDER = 20;
+const float RIGHT_BOARDER = 360;
+const float BOTTOM_BOARDER = 280;
+const float TOP_BOARDER = 80;
