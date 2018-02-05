@@ -1,0 +1,7 @@
+﻿  Game.cpp
+Game.cpp(67): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Player.cpp
+  Generating code
+  All 101 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Joint Project 1.vcxproj -> C:\Users\C00226157\Documents\GitHub\Joint-Project\Release\Joint Project 1.exe

@@ -3,7 +3,7 @@
 #include "Player.h"   // include Player header file
 
 // Player function definitions here
-Player::Player()
+Player::Player()// default constructor
 {
 	speed = 2.5f;
 
@@ -18,7 +18,7 @@ Player::Player()
 	playerBody.setPosition(sf::Vector2f{ playerX,playerY });
 }
 
-sf::Sprite Player::getBody()
+sf::Sprite Player::getBody()// return the player sprite
 {
 	return sf::Sprite(playerBody);
 }
@@ -27,12 +27,12 @@ void Player::update()
 {
 }
 
-void Player::draw(sf::RenderWindow & t_window)
+void Player::draw(sf::RenderWindow & t_window)// draws the player
 {
 	t_window.draw(playerBody);
 }
 
-void Player::moveLeft()
+void Player::moveLeft()// moves the player left and changes the sprite direction
 {
 	playerX -= speed;
 	if (!playerLeft.loadFromFile("ASSETS/IMAGES/left.png"))
@@ -43,7 +43,7 @@ void Player::moveLeft()
 	playerBody.setPosition(sf::Vector2f{ playerX,playerY });
 }
 
-void Player::moveRight()
+void Player::moveRight()// moves the player right and changes the sprite direction
 {
 	playerX += speed;
 	if (!playerRight.loadFromFile("ASSETS/IMAGES/right.png"))
@@ -54,7 +54,7 @@ void Player::moveRight()
 	playerBody.setPosition(sf::Vector2f{ playerX,playerY });
 }
 
-void Player::moveUp()
+void Player::moveUp()// moves the player up and shows the back of the player
 {
 	playerY -= speed;
 	if (!playerUp.loadFromFile("ASSETS/IMAGES/up.png"))
@@ -65,7 +65,7 @@ void Player::moveUp()
 	playerBody.setPosition(sf::Vector2f{ playerX,playerY });
 }
 
-void Player::moveDown()
+void Player::moveDown()// moves the player down and shows the front of the player
 {
 	playerY += speed;
 	if (!playerDown.loadFromFile("ASSETS/IMAGES/down.png"))
@@ -76,7 +76,7 @@ void Player::moveDown()
 	playerBody.setPosition(sf::Vector2f{ playerX,playerY });
 }
 
-void Player::boundaryCheck()
+void Player::boundaryCheck()// makes sure the player is in the boundary and not off the screen
 {
 	if (playerBody.getPosition().x <= LEFT_BOARDER)
 	{
