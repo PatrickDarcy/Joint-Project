@@ -4,6 +4,7 @@
 #include <SFML\Graphics.hpp>
 #include"Player.h"
 #include <iostream>
+#include "MyVector3.h"
 
 class Enemy
 {
@@ -14,14 +15,14 @@ class Enemy
 	sf::Texture m_enemyDown;
 
 	float m_enemySpeed;
-	float m_enemyX;
-	float m_enemyY;
+	double m_enemyX;
+	double m_enemyY;
 
 public:
 
 	Enemy();
 
 	void draw(sf::RenderWindow &t_window);
-	void enemyFollow(sf::Vector2f t_playerLocation);
+	void enemyFollow(MyVector3 t_playerLocation);
 	void enemyBoundaryCheck();
 };

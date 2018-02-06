@@ -27,6 +27,9 @@
     <ClCompile Include="Enemy1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MyVector3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyVector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

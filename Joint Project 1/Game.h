@@ -4,6 +4,7 @@
 #include "Player.h"   // include Player header file
 #include "Enemy.h"	// include Enemy header file
 #include "Enemy1.h"
+#include "MyVector3.h"
 
 #include "SFML/Graphics.hpp" 
 #include <iostream>

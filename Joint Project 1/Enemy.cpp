@@ -12,7 +12,7 @@ Enemy::Enemy()
 		std::cout << "error" << std::endl;
 	}
 	m_enemyBody.setTexture(m_enemyDown);
-	m_enemyBody.setPosition(sf::Vector2f{ m_enemyX,m_enemyY });
+	m_enemyBody.setPosition( m_enemyX,m_enemyY );
 }
 
 void Enemy::draw(sf::RenderWindow & t_window)
@@ -20,7 +20,7 @@ void Enemy::draw(sf::RenderWindow & t_window)
 	t_window.draw(m_enemyBody);
 }
 
-void Enemy::enemyFollow(sf::Vector2f t_playerLocation)
+void Enemy::enemyFollow(MyVector3 t_playerLocation)
 {
 	if (m_enemyX < t_playerLocation.x)
 	{
@@ -32,7 +32,7 @@ void Enemy::enemyFollow(sf::Vector2f t_playerLocation)
 			std::cout << "error" << std::endl;
 		}
 		m_enemyBody.setTexture(m_enemyRight);
-		m_enemyBody.setPosition(sf::Vector2f{ m_enemyX,m_enemyY });
+		m_enemyBody.setPosition( m_enemyX,m_enemyY );
 	}
 	if (m_enemyX > t_playerLocation.x)
 	{
@@ -44,7 +44,7 @@ void Enemy::enemyFollow(sf::Vector2f t_playerLocation)
 			std::cout << "error" << std::endl;
 		}
 		m_enemyBody.setTexture(m_enemyLeft);
-		m_enemyBody.setPosition(sf::Vector2f{ m_enemyX,m_enemyY });
+		m_enemyBody.setPosition( m_enemyX,m_enemyY );
 	}
 	if (m_enemyY < t_playerLocation.y)
 	{
@@ -56,7 +56,7 @@ void Enemy::enemyFollow(sf::Vector2f t_playerLocation)
 			std::cout << "error" << std::endl;
 		}
 		m_enemyBody.setTexture(m_enemyDown);
-		m_enemyBody.setPosition(sf::Vector2f{ m_enemyX,m_enemyY });
+		m_enemyBody.setPosition( m_enemyX,m_enemyY );
 	}
 	if (m_enemyY > t_playerLocation.y)
 	{
@@ -68,7 +68,7 @@ void Enemy::enemyFollow(sf::Vector2f t_playerLocation)
 			std::cout << "error" << std::endl;
 		}
 		m_enemyBody.setTexture(m_enemyUp);
-		m_enemyBody.setPosition(sf::Vector2f{ m_enemyX,m_enemyY });
+		m_enemyBody.setPosition( m_enemyX,m_enemyY );
 	}
 
 	

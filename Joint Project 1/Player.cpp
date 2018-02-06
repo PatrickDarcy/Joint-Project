@@ -15,7 +15,7 @@ Player::Player()// default constructor
 		std::cout << "error" << std::endl;
 	}
 	m_playerBody.setTexture(m_playerDown);
-	m_playerBody.setPosition(sf::Vector2f{ m_playerX,m_playerY });
+	m_playerBody.setPosition( m_playerX,m_playerY );
 }
 
 sf::Sprite Player::getBody()// return the player sprite
@@ -58,7 +58,7 @@ void Player::moveLeft()// moves the player left and changes the sprite direction
 		std::cout << "error" << std::endl;
 	}
 	m_playerBody.setTexture(m_playerLeft);
-	m_playerBody.setPosition(sf::Vector2f{ m_playerX,m_playerY });
+	m_playerBody.setPosition( m_playerX,m_playerY );
 }
 
 void Player::moveRight()// moves the player right and changes the sprite direction
@@ -69,7 +69,7 @@ void Player::moveRight()// moves the player right and changes the sprite directi
 		std::cout << "error" << std::endl;
 	}
 	m_playerBody.setTexture(m_playerRight);
-	m_playerBody.setPosition(sf::Vector2f{ m_playerX,m_playerY });
+	m_playerBody.setPosition( m_playerX,m_playerY );
 }
 
 void Player::moveUp()// moves the player up and shows the back of the player
@@ -80,7 +80,7 @@ void Player::moveUp()// moves the player up and shows the back of the player
 		std::cout << "error" << std::endl;
 	}
 	m_playerBody.setTexture(m_playerUp);
-	m_playerBody.setPosition(sf::Vector2f{ m_playerX,m_playerY });
+	m_playerBody.setPosition( m_playerX,m_playerY );
 }
 
 void Player::moveDown()// moves the player down and shows the front of the player
@@ -91,7 +91,7 @@ void Player::moveDown()// moves the player down and shows the front of the playe
 		std::cout << "error" << std::endl;
 	}
 	m_playerBody.setTexture(m_playerDown);
-	m_playerBody.setPosition(sf::Vector2f{ m_playerX,m_playerY });
+	m_playerBody.setPosition( m_playerX,m_playerY );
 }
 
 void Player::boundaryCheck()// makes sure the player is in the boundary and not off the screen
@@ -112,9 +112,4 @@ void Player::boundaryCheck()// makes sure the player is in the boundary and not 
 	{
 		m_playerY = TOP_BOARDER;
 	}
-}
-
-sf::Vector2f Player::getPosition()
-{
-	return sf::Vector2f(m_playerX,m_playerY);
 }

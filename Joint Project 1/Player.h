@@ -4,6 +4,7 @@
 #include<SFML\Graphics.hpp>
 #include"Globals.h"
 #include<iostream>
+#include "MyVector3.h"
 
 class Player
 {
@@ -30,5 +31,4 @@ public:
 	void moveUp();
 	void moveDown();
 	void boundaryCheck();
-	sf::Vector2f getPosition();
 };

@@ -4,6 +4,7 @@
 #include <SFML\Graphics.hpp>
 #include"Player.h"
 #include <iostream>
+#include "MyVector3.h"
 
 class Enemy1
 {
@@ -15,7 +16,8 @@ class Enemy1
 
 	sf::CircleShape m_detectionZone;
 
-	float m_enemy1Speed;
+	MyVector3 m_enemy1Speed;
+	MyVector3 m_enemy1Position;
 	float m_enemy1X;
 	float m_enemy1Y;
 	float m_detectionRadius;
@@ -26,7 +28,8 @@ public:
 	Enemy1();
 
 	void draw(sf::RenderWindow &t_window);
-	void enemyDetection(sf::Vector2f t_playerLocation);
-	void enemyFollow(sf::Vector2f t_playerLocation);
+	void enemyDetection(MyVector3 t_playerLocation);
+	void enemyFollow(MyVector3 t_playerLocation);
 	void enemyBoundaryCheck();
+	void move();
 };
