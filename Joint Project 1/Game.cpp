@@ -110,6 +110,7 @@ void Game::update()
 	m_thePlayer.boundaryCheck();
 	m_thePlayer.update();
 	m_enemy1.enemyFollow(m_thePlayer.getPosition());
+	m_enemy2.enemyDetection(m_thePlayer.getPosition());
 }
 
 void Game::draw()

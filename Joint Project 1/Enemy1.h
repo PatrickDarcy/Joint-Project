@@ -18,12 +18,15 @@ class Enemy1
 	float m_enemy1Speed;
 	float m_enemy1X;
 	float m_enemy1Y;
+	float m_detectionRadius;
+	bool m_followEnemy;
 
 public:
 
 	Enemy1();
 
 	void draw(sf::RenderWindow &t_window);
+	void enemyDetection(sf::Vector2f t_playerLocation);
 	void enemyFollow(sf::Vector2f t_playerLocation);
 	void enemyBoundaryCheck();
 };

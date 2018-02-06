@@ -15,3 +15,4 @@ const float LEFT_BOARDER = 20;
 const float RIGHT_BOARDER = 360;
 const float BOTTOM_BOARDER = 280;
 const float TOP_BOARDER = 80;
+const float CENTER_OF_CIRCLE = 38;

@@ -3,7 +3,7 @@
 Enemy1::Enemy1()
 {
 	m_enemy1Speed = 1.0f;
-	m_enemy1X = 360.0f;
+	m_enemy1X = 180.0f;
 	m_enemy1Y = 80.0f;
 
 	if (!m_enemy1Down.loadFromFile("ASSETS/IMAGES/enemyDown.png"))
@@ -11,11 +11,14 @@ Enemy1::Enemy1()
 		std::cout << "error" << std::endl;
 	}
 	m_enemy1Body.setTexture(m_enemy1Down);
-	m_enemy1Body.setPosition(sf::Vector2f{ m_enemy1X,m_enemy1Y });
+	m_enemy1Body.setPosition(sf::Vector2f{ m_enemy1X ,m_enemy1Y });
 
-	m_detectionZone.setPosition(m_enemy1X, m_enemy1Y);
-	m_detectionZone.setRadius(50);
+	m_detectionRadius = 50;
+	m_detectionZone.setPosition(m_enemy1X - CENTER_OF_CIRCLE, m_enemy1Y - CENTER_OF_CIRCLE);
+	m_detectionZone.setRadius(m_detectionRadius);
 	m_detectionZone.setFillColor(sf::Color{ 0,0,0,100 });
+
+	m_followEnemy = false;
 }
 
 void Enemy1::draw(sf::RenderWindow & t_window)
@@ -24,27 +27,38 @@ void Enemy1::draw(sf::RenderWindow & t_window)
 	t_window.draw(m_detectionZone);
 }
 
+void Enemy1::enemyDetection(sf::Vector2f t_playerLocation)
+{
+	if ((t_playerLocation - m_detectionZone.getPosition()) >  )
+	{
+		m_followEnemy = true;
+	}
+}
+
 void Enemy1::enemyFollow(sf::Vector2f t_playerLocation)
 {
-	if (m_enemy1X < t_playerLocation.x)
+	if (m_followEnemy == true)
 	{
-		m_enemy1X += m_enemy1Speed;
-		m_enemy1Body.setPosition(m_enemy1X, m_enemy1Y);
-	}
-	if (m_enemy1X > t_playerLocation.x)
-	{
-		m_enemy1X -= m_enemy1Speed;
-		m_enemy1Body.setPosition(m_enemy1X, m_enemy1Y);
-	}
-	if (m_enemy1Y < t_playerLocation.y)
-	{
-		m_enemy1Y += m_enemy1Speed;
-		m_enemy1Body.setPosition(m_enemy1X, m_enemy1Y);
-	}
-	if (m_enemy1Y > t_playerLocation.y)
-	{
-		m_enemy1Y -= m_enemy1Speed;
-		m_enemy1Body.setPosition(m_enemy1X, m_enemy1Y);
+		if (m_enemy1X < t_playerLocation.x)
+		{
+			m_enemy1X += m_enemy1Speed;
+			m_enemy1Body.setPosition(m_enemy1X, m_enemy1Y);
+		}
+		if (m_enemy1X > t_playerLocation.x)
+		{
+			m_enemy1X -= m_enemy1Speed;
+			m_enemy1Body.setPosition(m_enemy1X, m_enemy1Y);
+		}
+		if (m_enemy1Y < t_playerLocation.y)
+		{
+			m_enemy1Y += m_enemy1Speed;
+			m_enemy1Body.setPosition(m_enemy1X, m_enemy1Y);
+		}
+		if (m_enemy1Y > t_playerLocation.y)
+		{
+			m_enemy1Y -= m_enemy1Speed;
+			m_enemy1Body.setPosition(m_enemy1X, m_enemy1Y);
+		}
 	}
 }
 
