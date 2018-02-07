@@ -14,6 +14,23 @@ Player::Player()// default constructor
 	{
 		std::cout << "error" << std::endl;
 	}
+	if (!m_playerLeft.loadFromFile("ASSETS/IMAGES/left.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!m_playerRight.loadFromFile("ASSETS/IMAGES/right.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!m_playerUp.loadFromFile("ASSETS/IMAGES/up.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!m_playerDown.loadFromFile("ASSETS/IMAGES/down.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+
 	m_playerBody.setTexture(m_playerDown);
 	m_playerBody.setPosition( m_playerX,m_playerY );
 }
@@ -53,10 +70,7 @@ void Player::draw(sf::RenderWindow & t_window)// draws the player
 void Player::moveLeft()// moves the player left and changes the sprite direction
 {
 	m_playerX -= m_speed;
-	if (!m_playerLeft.loadFromFile("ASSETS/IMAGES/left.png"))
-	{
-		std::cout << "error" << std::endl;
-	}
+
 	m_playerBody.setTexture(m_playerLeft);
 	m_playerBody.setPosition( m_playerX,m_playerY );
 }
@@ -64,10 +78,7 @@ void Player::moveLeft()// moves the player left and changes the sprite direction
 void Player::moveRight()// moves the player right and changes the sprite direction
 {
 	m_playerX += m_speed;
-	if (!m_playerRight.loadFromFile("ASSETS/IMAGES/right.png"))
-	{
-		std::cout << "error" << std::endl;
-	}
+
 	m_playerBody.setTexture(m_playerRight);
 	m_playerBody.setPosition( m_playerX,m_playerY );
 }
@@ -75,10 +86,7 @@ void Player::moveRight()// moves the player right and changes the sprite directi
 void Player::moveUp()// moves the player up and shows the back of the player
 {
 	m_playerY -= m_speed;
-	if (!m_playerUp.loadFromFile("ASSETS/IMAGES/up.png"))
-	{
-		std::cout << "error" << std::endl;
-	}
+
 	m_playerBody.setTexture(m_playerUp);
 	m_playerBody.setPosition( m_playerX,m_playerY );
 }
@@ -86,10 +94,7 @@ void Player::moveUp()// moves the player up and shows the back of the player
 void Player::moveDown()// moves the player down and shows the front of the player
 {
 	m_playerY += m_speed;
-	if (!m_playerDown.loadFromFile("ASSETS/IMAGES/down.png"))
-	{
-		std::cout << "error" << std::endl;
-	}
+
 	m_playerBody.setTexture(m_playerDown);
 	m_playerBody.setPosition( m_playerX,m_playerY );
 }

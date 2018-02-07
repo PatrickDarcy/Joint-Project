@@ -51,7 +51,7 @@ Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cas
 		std::cout << "error" << std::endl;
 	}
 	m_background.setTexture(m_texture);
-	m_background.setPosition(sf::Vector2f{ 0,0 });
+	m_background.setPosition( 0,0 );
 }
 
 void Game::loadContent()
@@ -112,6 +112,7 @@ void Game::update()
 	m_enemy1.enemyFollow(m_thePlayer.getBody().getPosition());
 	m_enemy2.enemyDetection(m_thePlayer.getBody().getPosition());
 	m_enemy2.enemyFollow(m_thePlayer.getBody().getPosition());
+	m_enemy2.update();
 }
 
 void Game::draw()
