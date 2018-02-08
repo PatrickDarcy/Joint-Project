@@ -22,7 +22,7 @@ class Enemy1
 	float m_enemy1Y;
 	float m_detectionRadius;
 	int m_direction;
-	bool m_followEnemy;
+	bool m_followPlayer;
 
 public:
 
@@ -33,6 +33,6 @@ public:
 	void enemyFollow(MyVector3 t_playerLocation);
 	void enemyBoundaryCheck();
 	void move();
-	void update();
-	void direction();
+	void update(MyVector3 t_playerLocation);
+	void spriteFacing();
 };

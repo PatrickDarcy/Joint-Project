@@ -30,7 +30,7 @@ Enemy1::Enemy1()
 	m_detectionZone.setRadius(m_detectionRadius);
 	m_detectionZone.setFillColor(sf::Color{ 0,0,0,100 });
 
-	m_followEnemy = false;
+	m_followPlayer = false;
 }
 
 void Enemy1::draw(sf::RenderWindow & t_window)
@@ -42,41 +42,41 @@ void Enemy1::enemyDetection(MyVector3 t_playerLocation)
 {
 	if ((t_playerLocation - m_detectionZone.getPosition()).length() <= m_detectionRadius)
 	{
-		m_followEnemy = true;
+		m_followPlayer = true;
 		std::cout << "It Works" << std::endl;
 	}
 	else
 	{
-		m_followEnemy = false;
+		m_followPlayer = false;
 	}
 }
 
 void Enemy1::enemyFollow(MyVector3 t_playerLocation)
 {
-	if (m_followEnemy == true)
-	{
-		if (m_enemy1Position.x < t_playerLocation.x)
-		{
-			m_enemy1Position.x += m_enemy1Speed.x;
-			m_enemy1Body.setPosition(m_enemy1Position);
-		}
-		if (m_enemy1Position.x > t_playerLocation.x)
-		{
-			m_enemy1Position.x -= m_enemy1Speed.x;
-			m_enemy1Body.setPosition(m_enemy1Position);
-		}
-		if (m_enemy1Position.y < t_playerLocation.y)
-		{
-			m_enemy1Position.y += m_enemy1Speed.y;
-			m_enemy1Body.setPosition(m_enemy1Position);
-		}
-		if (m_enemy1Position.y > t_playerLocation.y)
-		{
-			m_enemy1Position.y -= m_enemy1Speed.y;
-			m_enemy1Body.setPosition(m_enemy1Position);
+	float enemySpeedX = 1.5;
+	float enemySpeedY = 1.5;
 
-		}
+	if (m_enemy1Position.x < t_playerLocation.x)
+	{
+		m_enemy1Position.x += enemySpeedX;
+		m_direction = EAST;
 	}
+	if (m_enemy1Position.x > t_playerLocation.x)
+	{
+		m_enemy1Position.x -= enemySpeedX;
+		m_direction = WEST;
+	}
+	if (m_enemy1Position.y < t_playerLocation.y)
+	{
+		m_enemy1Position.y += enemySpeedY;
+		m_direction = SOUTH;
+	}
+	if (m_enemy1Position.y > t_playerLocation.y)
+	{
+		m_enemy1Position.y -= enemySpeedY;
+		m_direction = NORTH;
+	}
+	m_enemy1Body.setPosition(m_enemy1Position);
 }
 
 
@@ -103,32 +103,63 @@ void Enemy1::enemyBoundaryCheck()
 
 void Enemy1::move()
 {
-	m_enemy1Position.x += m_enemy1Speed.x;
-
+	if (m_enemy1Position.x >= LEFT_BOARDER && m_enemy1Position.x <= RIGHT_BOARDER)
+	{
+		m_enemy1Position.x += m_enemy1Speed.x;
+	}
 	if (m_enemy1Position.x >= RIGHT_BOARDER)
 	{
 		m_enemy1Speed.x = -(m_enemy1Speed.x);
 		m_enemy1Body.setPosition(m_enemy1Position);
+		m_direction = WEST;
 	}
 	if (m_enemy1Position.x <= LEFT_BOARDER)
 	{
 		m_enemy1Speed.x = -(m_enemy1Speed.x);
 		m_enemy1Body.setPosition(m_enemy1Position);
+		m_direction = EAST;
 	}
 	m_enemy1Body.setPosition(m_enemy1Position);
 	m_detectionZone.setPosition(m_enemy1Position);
 }
 
-void Enemy1::update()
+void Enemy1::update(MyVector3 t_playerLocation)
 {
-	if (m_followEnemy == false)
+	spriteFacing();
+	if (m_followPlayer == true)
+	{
+		enemyFollow(t_playerLocation);
+	}
+	else
 	{
 		move();
 	}
+
+	enemyDetection(t_playerLocation);
 	enemyBoundaryCheck();
 }
 
-void Enemy1::direction()
+void Enemy1::spriteFacing()
 {
+	if (m_direction == EAST)
+	{
+		m_enemy1Body.setTexture(m_enemy1Right);
+		m_enemy1Body.setPosition(m_enemy1Position);
+	}
+	if (m_direction == WEST)
+	{
+		m_enemy1Body.setTexture(m_enemy1Left);
+		m_enemy1Body.setPosition(m_enemy1Position);
+	}
+	if (m_direction == NORTH)
+	{
+		m_enemy1Body.setTexture(m_enemy1Up);
+		m_enemy1Body.setPosition(m_enemy1Position);
+	}
+	if (m_direction == SOUTH)
+	{
+		m_enemy1Body.setTexture(m_enemy1Down);
+		m_enemy1Body.setPosition(m_enemy1Position);
+	}
 }
 

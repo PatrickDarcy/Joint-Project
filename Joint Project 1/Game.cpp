@@ -109,10 +109,8 @@ void Game::update()
 {
 	m_thePlayer.boundaryCheck();
 	m_thePlayer.update();
+	m_enemy2.update(m_thePlayer.getBody().getPosition());
 	m_enemy1.enemyFollow(m_thePlayer.getBody().getPosition());
-	m_enemy2.enemyDetection(m_thePlayer.getBody().getPosition());
-	m_enemy2.enemyFollow(m_thePlayer.getBody().getPosition());
-	m_enemy2.update();
 }
 
 void Game::draw()
