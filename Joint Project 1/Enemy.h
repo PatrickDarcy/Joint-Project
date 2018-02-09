@@ -2,7 +2,7 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include"Player.h"
+#include "Globals.h"
 #include <iostream>
 #include "MyVector3.h"
 

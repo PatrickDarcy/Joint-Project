@@ -4,6 +4,7 @@
 #include "Player.h"   // include Player header file
 #include "Enemy.h"	// include Enemy header file
 #include "Enemy1.h"
+#include "Archers.h"
 #include "MyVector3.h"
 
 #include "SFML/Graphics.hpp" 
@@ -24,6 +25,7 @@ class Game
 	Player m_thePlayer;
 	Enemy m_enemy1;
 	Enemy1 m_enemy2;
+	Archer m_enemy3;
 	sf::Sprite m_background;
 	sf::Texture m_texture;
 

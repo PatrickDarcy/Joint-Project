@@ -111,6 +111,8 @@ void Game::update()
 	m_thePlayer.update();
 	m_enemy2.update(m_thePlayer.getBody().getPosition());
 	m_enemy1.enemyFollow(m_thePlayer.getBody().getPosition());
+	m_enemy3.update(m_thePlayer.getBody().getPosition());
+
 }
 
 void Game::draw()
@@ -122,5 +124,6 @@ void Game::draw()
 	m_thePlayer.draw(m_window);
 	m_enemy1.draw(m_window);
 	m_enemy2.draw(m_window);
+	m_enemy3.draw(m_window);
 	m_window.display();
 }
