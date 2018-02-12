@@ -27,7 +27,7 @@ public:
 	MyVector3(sf::Vector3i t_sfVector);
 	MyVector3(sf::Vector2i t_sfVector);
 	MyVector3(sf::Vector2u t_sfVector);
-	MyVector3(sf::Vector2f t_sfVector); 
+	MyVector3(const sf::Vector2f t_sfVector); 
 	
 	bool operator == (const MyVector3 t_right) const;
 	bool operator != (const MyVector3 t_right) const;

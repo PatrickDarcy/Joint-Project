@@ -109,9 +109,10 @@ void Game::update()
 {
 	m_thePlayer.boundaryCheck();
 	m_thePlayer.update();
-	m_enemy2.update(m_thePlayer.getBody().getPosition());
-	m_enemy1.enemyFollow(m_thePlayer.getBody().getPosition());
-	m_enemy3.update(m_thePlayer.getBody().getPosition());
+	m_detector.update(m_thePlayer.getBody().getPosition());
+	m_follower.enemyFollow(m_thePlayer.getBody().getPosition());
+	m_archer.update(m_thePlayer.getBody().getPosition());
+	m_archerArrow.update(m_archer.getBody().getPosition());
 
 }
 
@@ -122,8 +123,9 @@ void Game::draw()
 	m_window.clear();
 	m_window.draw(m_background);
 	m_thePlayer.draw(m_window);
-	m_enemy1.draw(m_window);
-	m_enemy2.draw(m_window);
-	m_enemy3.draw(m_window);
+	m_follower.draw(m_window);
+	m_detector.draw(m_window);
+	m_archer.draw(m_window);
+	m_archerArrow.draw(m_window);
 	m_window.display();
 }

@@ -2,9 +2,10 @@
 #pragma once
 
 #include "Player.h"   // include Player header file
-#include "Enemy.h"	// include Enemy header file
-#include "Enemy1.h"
+#include "Follower.h"	// include Enemy header file
+#include "Detector.h"
 #include "Archers.h"
+#include "Arrow.h"
 #include "MyVector3.h"
 
 #include "SFML/Graphics.hpp" 
@@ -23,9 +24,10 @@ class Game
 
 	sf::RenderWindow m_window;
 	Player m_thePlayer;
-	Enemy m_enemy1;
-	Enemy1 m_enemy2;
-	Archer m_enemy3;
+	Follower m_follower;
+	Detector m_detector;
+	Archer m_archer;
+	Arrow m_archerArrow;
 	sf::Sprite m_background;
 	sf::Texture m_texture;
 
