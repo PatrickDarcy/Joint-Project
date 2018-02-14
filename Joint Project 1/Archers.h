@@ -12,10 +12,6 @@ class Archer
 	sf::Texture m_archerDown;
 
 	int m_noOfArchers;
-	MyVector3 m_archerLocation;
-	float m_downRangeLeft;
-	float m_downRangeRight;
-	float m_downRangeSwitch;
 
 public:
 	Archer();
@@ -23,6 +19,8 @@ public:
 	void draw(sf::RenderWindow & t_window);
 	void downRange(MyVector3  t_playerLocation);
 	sf::Sprite getBody();
-
-
+	float m_downRangeLeft;
+	float m_downRangeRight;
+	float m_downRangeSwitch;
+	MyVector3 m_archerLocation;
 };

@@ -26,8 +26,8 @@ class Game
 	Player m_thePlayer;
 	Follower m_follower;
 	Detector m_detector;
-	Archer m_archer;
-	Arrow m_archerArrow;
+	Archer m_archers[MAX_ARCHERS];
+	Arrow m_archerArrow[MAX_ARCHERS]; 
 	sf::Sprite m_background;
 	sf::Texture m_texture;
 

@@ -13,11 +13,13 @@ class Arrow
 
 	MyVector3 m_arrowLocation;
 	float m_arrowSpeed;
+	int m_shootArrow;
 
 public:
 
 	Arrow();
-	void ifShot(MyVector3 t_enemyLocation);
-	void update(MyVector3 t_enemyLocation);
+	void arrowShot(MyVector3 t_enemyLocation);
+	void update(MyVector3 t_playerLocation, MyVector3 t_enemyLocation, float t_downRangeLeft, float t_downRangeRight);
 	void draw(sf::RenderWindow & t_window);
+	void collisionWithPlayer(MyVector3 t_playerLocation);
 };

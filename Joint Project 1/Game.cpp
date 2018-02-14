@@ -107,12 +107,14 @@ void Game::run()
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
-	m_thePlayer.boundaryCheck();
 	m_thePlayer.update();
 	m_detector.update(m_thePlayer.getBody().getPosition());
-	m_follower.enemyFollow(m_thePlayer.getBody().getPosition());
-	m_archer.update(m_thePlayer.getBody().getPosition());
-	m_archerArrow.update(m_archer.getBody().getPosition());
+	m_follower.update(m_thePlayer.getBody().getPosition());
+	for (int index = 0; index < MAX_ARCHERS; index++)
+	{
+		m_archers[index].update(m_thePlayer.getBody().getPosition());
+		m_archerArrow[index].update(m_thePlayer.getBody().getPosition(), m_archers[index].getBody().getPosition(), m_archers->m_downRangeLeft, m_archers->m_downRangeRight);
+	}
 
 }
 
@@ -125,7 +127,11 @@ void Game::draw()
 	m_thePlayer.draw(m_window);
 	m_follower.draw(m_window);
 	m_detector.draw(m_window);
-	m_archer.draw(m_window);
-	m_archerArrow.draw(m_window);
+	for (int index = 0; index < MAX_ARCHERS; index++)
+	{
+		m_archers[index].draw(m_window);
+		//m_archers[index].getBody().setPosition(m_archers[index].m_archerLocation + MyVector3{ 110, 0, 0 });
+		m_archerArrow[index].draw(m_window);
+	}	
 	m_window.display();
 }

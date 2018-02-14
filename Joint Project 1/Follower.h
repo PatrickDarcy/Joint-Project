@@ -25,4 +25,5 @@ public:
 	void draw(sf::RenderWindow &t_window);
 	void enemyFollow(MyVector3 t_playerLocation);
 	void enemyBoundaryCheck();
+	void update(MyVector3 t_playerLocation);
 };

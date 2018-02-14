@@ -60,6 +60,8 @@ void Player::update()
 		moveDown();
 	}
 
+	boundaryCheck();
+
 }
 
 void Player::draw(sf::RenderWindow & t_window)// draws the player

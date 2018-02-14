@@ -18,3 +18,6 @@ const float TOP_BOARDER = 80;
 const float CENTER_OF_CIRCLE = 38;
 
 const int MAX_ARCHERS = 4;
+
+const int PLAYER_WIDTH = 18;
+const int PLAYER_HEIGHT = 25;

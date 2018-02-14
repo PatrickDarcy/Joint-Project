@@ -93,3 +93,9 @@ void Follower::enemyBoundaryCheck()
 		m_enemyY = TOP_BOARDER;
 	}
 }
+
+void Follower::update(MyVector3 t_playerLocation)
+{
+	enemyBoundaryCheck();
+	enemyFollow(t_playerLocation);
+}

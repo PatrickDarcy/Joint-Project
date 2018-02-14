@@ -35,7 +35,6 @@ void Archer::downRange(MyVector3 t_playerLocation)
 
 	if (t_playerLocation.x > m_downRangeLeft && t_playerLocation.x < m_downRangeRight)
 	{
-		std::cout << "It works again" << std::endl;
 	}
 
 	m_downRangeLeft += m_downRangeSwitch;
