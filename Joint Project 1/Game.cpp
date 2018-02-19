@@ -116,7 +116,7 @@ void Game::run()
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
-	m_thePlayer.update(m_follower.getPosition());
+	m_thePlayer.update(m_follower.getPosition(), m_detector.getPosition());
 	m_detector.update(m_thePlayer.getBody().getPosition());
 	m_follower.update(m_thePlayer.getBody().getPosition());
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))

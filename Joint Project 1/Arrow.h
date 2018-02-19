@@ -10,6 +10,9 @@ class Arrow
 {
 	sf::Sprite m_arrow;
 	sf::Texture m_arrowDown;
+	sf::Texture m_arrowUp;
+	sf::Texture m_arrowRight;
+	sf::Texture m_arrowLeft;
 
 	MyVector3 m_arrowLocation;
 	float m_arrowSpeed;

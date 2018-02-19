@@ -18,8 +18,6 @@ class Detector
 
 	MyVector3 m_enemy1Speed;
 	MyVector3 m_enemy1Position;
-	float m_enemy1X;
-	float m_enemy1Y;
 	float m_detectionRadius;
 	int m_direction;
 	bool m_followPlayer;
@@ -35,4 +33,5 @@ public:
 	void move();
 	void update(MyVector3 t_playerLocation);
 	void spriteFacing();
+	MyVector3 getPosition();
 };

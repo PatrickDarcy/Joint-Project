@@ -23,13 +23,13 @@ public:
 
 
 	sf::Sprite getBody();
-	void update(MyVector3 t_followerLocation);
+	void update(MyVector3 t_followerLocation, MyVector3 t_detectorLocation);
 	void draw(sf::RenderWindow &t_window);
 	void moveLeft();
 	void moveRight();
 	void moveUp();
 	void moveDown();
 	void boundaryCheck();
-	void collisionWithFollower(MyVector3 t_followerLocation);
+	void collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_detectorLocation);
 	MyVector3 getPosition();
 };

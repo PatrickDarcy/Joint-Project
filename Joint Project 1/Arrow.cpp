@@ -10,6 +10,18 @@ Arrow::Arrow()
 	{
 		std::cout << "error" << std::endl;
 	}
+	if (!m_arrowUp.loadFromFile("ASSETS/IMAGES/arrowUp.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!m_arrowRight.loadFromFile("ASSETS/IMAGES/arrowLeft.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!m_arrowLeft.loadFromFile("ASSETS/IMAGES/arrowRight.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
 
 	m_arrow.setTexture(m_arrowDown);
 	m_arrow.setPosition(m_arrowLocation);

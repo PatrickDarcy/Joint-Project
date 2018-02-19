@@ -43,12 +43,13 @@ void Detector::enemyDetection(MyVector3 t_playerLocation)
 	if ((t_playerLocation - m_detectionZone.getPosition()).length() <= m_detectionRadius)
 	{
 		m_followPlayer = true;
-		std::cout << "It Works" << std::endl;
+		std::cout << "Detected" << std::endl;
 	}
 	else
 	{
 		m_followPlayer = false;
 	}
+
 }
 
 void Detector::enemyFollow(MyVector3 t_playerLocation)
@@ -161,5 +162,10 @@ void Detector::spriteFacing()
 		m_enemy1Body.setTexture(m_enemy1Down,true);
 		m_enemy1Body.setPosition(m_enemy1Position);
 	}
+}
+
+MyVector3 Detector::getPosition()
+{
+	return m_enemy1Position;
 }
 

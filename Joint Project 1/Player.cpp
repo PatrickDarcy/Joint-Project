@@ -38,7 +38,7 @@ sf::Sprite Player::getBody()// return the player sprite
 	return sf::Sprite(m_playerBody);
 }
 
-void Player::update(MyVector3 t_followerLocation)
+void Player::update(MyVector3 t_followerLocation, MyVector3 t_detectorLocation)
 {
 	// get keyboard input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -59,7 +59,7 @@ void Player::update(MyVector3 t_followerLocation)
 	}
 
 	boundaryCheck();
-	collisionWithFollower(t_followerLocation);
+	collisionWithEnemies(t_followerLocation, t_detectorLocation);
 }
 
 void Player::draw(sf::RenderWindow & t_window)// draws the player
@@ -119,11 +119,18 @@ void Player::boundaryCheck()// makes sure the player is in the boundary and not 
 	}
 }
 
-void Player::collisionWithFollower(MyVector3 t_followerLocation)
+void Player::collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_detectorLocation)
 {
-	if (t_followerLocation == m_playerLocation)
+	if (m_playerLocation.x >= t_followerLocation.x && m_playerLocation.y >= t_followerLocation.y &&
+		m_playerLocation.x <= t_followerLocation.x + PLAYER_WIDTH && m_playerLocation.y <= t_followerLocation.y + PLAYER_HEIGHT)
 	{
-		std::cout << "Ouch" << std::endl;
+		std::cout << "Thats a sore boi" << std::endl;
+	}
+
+	if (m_playerLocation.x >= t_detectorLocation.x && m_playerLocation.y >= t_detectorLocation.y &&
+		m_playerLocation.x <= t_detectorLocation.x + PLAYER_WIDTH && m_playerLocation.y <= t_detectorLocation.y + PLAYER_HEIGHT)
+	{
+		std::cout << "That hurt" << std::endl;
 	}
 }
 
