@@ -52,6 +52,15 @@ Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cas
 	}
 	m_background.setTexture(m_texture);
 	m_background.setPosition( 0,0 );
+
+	m_archerX = 25;
+	m_archerY = 40;
+
+	for (int index = 0; index < MAX_ARCHERS; index++)
+	{
+		m_archers[index].setPosition(sf::Vector2f{ m_archerX, m_archerY });
+		m_archerX += 110;
+	}
 }
 
 void Game::loadContent()
@@ -107,13 +116,17 @@ void Game::run()
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
-	m_thePlayer.update();
+	m_thePlayer.update(m_follower.getPosition());
 	m_detector.update(m_thePlayer.getBody().getPosition());
 	m_follower.update(m_thePlayer.getBody().getPosition());
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		m_playerArrow.update(m_follower.getPosition(), m_thePlayer.getPosition());
+	}
 	for (int index = 0; index < MAX_ARCHERS; index++)
 	{
 		m_archers[index].update(m_thePlayer.getBody().getPosition());
-		m_archerArrow[index].update(m_thePlayer.getBody().getPosition(), m_archers[index].getBody().getPosition(), m_archers->m_downRangeLeft, m_archers->m_downRangeRight);
+		m_archerArrow[index].update(m_thePlayer.getBody().getPosition(), m_archers[index].getBody().getPosition());
 	}
 
 }
@@ -130,7 +143,6 @@ void Game::draw()
 	for (int index = 0; index < MAX_ARCHERS; index++)
 	{
 		m_archers[index].draw(m_window);
-		//m_archers[index].getBody().setPosition(m_archers[index].m_archerLocation + MyVector3{ 110, 0, 0 });
 		m_archerArrow[index].draw(m_window);
 	}	
 	m_window.display();

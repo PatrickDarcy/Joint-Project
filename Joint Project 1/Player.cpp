@@ -5,10 +5,8 @@
 // Player function definitions here
 Player::Player()// default constructor
 {
-	m_speed = 2.5f;
-
-	m_playerX = 200;
-	m_playerY = 160;
+	m_speed = { 2.5,2.5,0 };
+	m_playerLocation = { 200,160,0 };
 
 	if (!m_playerDown.loadFromFile("ASSETS/IMAGES/down.png"))
 	{
@@ -32,7 +30,7 @@ Player::Player()// default constructor
 	}
 
 	m_playerBody.setTexture(m_playerDown);
-	m_playerBody.setPosition( m_playerX,m_playerY );
+	m_playerBody.setPosition( m_playerLocation );
 }
 
 sf::Sprite Player::getBody()// return the player sprite
@@ -40,7 +38,7 @@ sf::Sprite Player::getBody()// return the player sprite
 	return sf::Sprite(m_playerBody);
 }
 
-void Player::update()
+void Player::update(MyVector3 t_followerLocation)
 {
 	// get keyboard input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -61,7 +59,7 @@ void Player::update()
 	}
 
 	boundaryCheck();
-
+	collisionWithFollower(t_followerLocation);
 }
 
 void Player::draw(sf::RenderWindow & t_window)// draws the player
@@ -71,52 +69,65 @@ void Player::draw(sf::RenderWindow & t_window)// draws the player
 
 void Player::moveLeft()// moves the player left and changes the sprite direction
 {
-	m_playerX -= m_speed;
+	m_playerLocation.x -= m_speed.x;
 
 	m_playerBody.setTexture(m_playerLeft);
-	m_playerBody.setPosition( m_playerX,m_playerY );
+	m_playerBody.setPosition( m_playerLocation );
 }
 
 void Player::moveRight()// moves the player right and changes the sprite direction
 {
-	m_playerX += m_speed;
+	m_playerLocation.x += m_speed.x;
 
 	m_playerBody.setTexture(m_playerRight);
-	m_playerBody.setPosition( m_playerX,m_playerY );
+	m_playerBody.setPosition( m_playerLocation);
 }
 
 void Player::moveUp()// moves the player up and shows the back of the player
 {
-	m_playerY -= m_speed;
+	m_playerLocation.y -= m_speed.y;
 
 	m_playerBody.setTexture(m_playerUp);
-	m_playerBody.setPosition( m_playerX,m_playerY );
+	m_playerBody.setPosition( m_playerLocation );
 }
 
 void Player::moveDown()// moves the player down and shows the front of the player
 {
-	m_playerY += m_speed;
+	m_playerLocation.y += m_speed.y;
 
 	m_playerBody.setTexture(m_playerDown);
-	m_playerBody.setPosition( m_playerX,m_playerY );
+	m_playerBody.setPosition( m_playerLocation);
 }
 
 void Player::boundaryCheck()// makes sure the player is in the boundary and not off the screen
 {
 	if (m_playerBody.getPosition().x <= LEFT_BOARDER)
 	{
-		m_playerX = LEFT_BOARDER;
+		m_playerLocation.x = LEFT_BOARDER;
 	}
 	if (m_playerBody.getPosition().x > RIGHT_BOARDER)
 	{
-		m_playerX = RIGHT_BOARDER;
+		m_playerLocation.x = RIGHT_BOARDER;
 	}
 	if (m_playerBody.getPosition().y > BOTTOM_BOARDER)
 	{
-		m_playerY = BOTTOM_BOARDER;
+		m_playerLocation.y = BOTTOM_BOARDER;
 	}
 	if (m_playerBody.getPosition().y <= TOP_BOARDER)
 	{
-		m_playerY = TOP_BOARDER;
+		m_playerLocation.y = TOP_BOARDER;
 	}
+}
+
+void Player::collisionWithFollower(MyVector3 t_followerLocation)
+{
+	if (t_followerLocation == m_playerLocation)
+	{
+		std::cout << "Ouch" << std::endl;
+	}
+}
+
+MyVector3 Player::getPosition()
+{
+	return m_playerLocation;
 }

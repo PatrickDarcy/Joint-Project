@@ -15,25 +15,22 @@ Arrow::Arrow()
 	m_arrow.setPosition(m_arrowLocation);
 }
 
-void Arrow::arrowShot(MyVector3 t_enemyLocation)
+void Arrow::arrowShot(MyVector3 t_shooter)
 {
 	m_arrowLocation.y += m_arrowSpeed;
 	m_arrow.setPosition(m_arrowLocation);
 	if (m_arrowLocation.y > SCREEN_HEIGHT)
 	{
-		m_arrowLocation = t_enemyLocation + MyVector3{6,0,0};
+		m_arrowLocation = t_shooter + MyVector3{6,0,0};
 		m_shootArrow = 0;
 	}
 }
 
-void Arrow::update(MyVector3 t_playerLocation, MyVector3 t_enemyLocation, float t_downRangeLeft, float t_downRangeRight)
+void Arrow::update(MyVector3 t_target, MyVector3 t_shooter)
 {	
-	if (t_playerLocation.x >= t_downRangeLeft && t_playerLocation.x < t_downRangeRight || m_shootArrow > 0)
-	{
-		m_shootArrow++;
-		arrowShot(t_enemyLocation);
-	}
-	collisionWithPlayer(t_playerLocation);
+	m_shootArrow++;
+	arrowShot(t_shooter);
+	collisionWithPlayer(t_target);
 }
 
 void Arrow::draw(sf::RenderWindow & t_window)
@@ -41,10 +38,10 @@ void Arrow::draw(sf::RenderWindow & t_window)
 	t_window.draw(m_arrow);
 }
 
-void Arrow::collisionWithPlayer(MyVector3 t_playerLocation)
+void Arrow::collisionWithPlayer(MyVector3 t_target)
 {
-	if (m_arrowLocation.x >= t_playerLocation.x && m_arrowLocation.y >= t_playerLocation.y && 
-		m_arrowLocation.x <= t_playerLocation.x + PLAYER_WIDTH && m_arrowLocation.y <= t_playerLocation.y + PLAYER_HEIGHT)
+	if (m_arrowLocation.x >= t_target.x && m_arrowLocation.y >= t_target.y && 
+		m_arrowLocation.x <= t_target.x + PLAYER_WIDTH && m_arrowLocation.y <= t_target.y + PLAYER_HEIGHT)
 	{
 		std::cout << "Ouch" << std::endl;
 	}

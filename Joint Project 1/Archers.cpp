@@ -3,7 +3,6 @@
 Archer::Archer()
 {
 	m_noOfArchers = MAX_ARCHERS;
-	m_archerLocation = { 25, 40, 0 };
 
 	if (!m_archerDown.loadFromFile("ASSETS/IMAGES/enemy2345.png"))
 	{
@@ -11,7 +10,6 @@ Archer::Archer()
 	}
 
 	m_archerBody.setTexture(m_archerDown);
-	m_archerBody.setPosition(m_archerLocation);
 
 	m_downRangeLeft = LEFT_BOARDER;
 	m_downRangeRight = 70;
@@ -44,4 +42,9 @@ void Archer::downRange(MyVector3 t_playerLocation)
 sf::Sprite Archer::getBody()
 {
 	return(m_archerBody);
+}
+
+void Archer::setPosition(sf::Vector2f t_newPos)
+{
+	m_archerBody.setPosition(t_newPos);
 }

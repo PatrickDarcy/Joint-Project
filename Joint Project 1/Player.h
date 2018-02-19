@@ -15,20 +15,21 @@ class Player
 	sf::Texture m_playerUp;
 	sf::Texture m_playerDown;
 
-	float m_speed;
-	float m_playerX;
-	float m_playerY;
+	MyVector3 m_playerLocation;
+	MyVector3 m_speed;
 
 public:
 	Player();
 
 
 	sf::Sprite getBody();
-	void update();
+	void update(MyVector3 t_followerLocation);
 	void draw(sf::RenderWindow &t_window);
 	void moveLeft();
 	void moveRight();
 	void moveUp();
 	void moveDown();
 	void boundaryCheck();
+	void collisionWithFollower(MyVector3 t_followerLocation);
+	MyVector3 getPosition();
 };

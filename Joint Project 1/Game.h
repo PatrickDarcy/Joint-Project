@@ -28,8 +28,11 @@ class Game
 	Detector m_detector;
 	Archer m_archers[MAX_ARCHERS];
 	Arrow m_archerArrow[MAX_ARCHERS]; 
+	Arrow m_playerArrow;
 	sf::Sprite m_background;
 	sf::Texture m_texture;
+	float m_archerX;
+	float m_archerY;
 
 public:
 

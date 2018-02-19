@@ -2,10 +2,8 @@
 
 Follower::Follower()
 {
-	m_enemySpeed = 1.0f;
-
-	m_enemyX = 200.0f;
-	m_enemyY = 80.0f;
+	m_enemyLocation = { 200,80,0 };
+	m_speed = { 1,1,0 };
 
 	if (!m_enemyDown.loadFromFile("ASSETS/IMAGES/enemy1Down.png"))
 	{
@@ -28,7 +26,7 @@ Follower::Follower()
 		std::cout << "error" << std::endl;
 	}
 	m_enemyBody.setTexture(m_enemyDown);
-	m_enemyBody.setPosition( m_enemyX,m_enemyY );
+	m_enemyBody.setPosition( m_enemyLocation);
 }
 
 void Follower::draw(sf::RenderWindow & t_window)
@@ -38,37 +36,37 @@ void Follower::draw(sf::RenderWindow & t_window)
 
 void Follower::enemyFollow(MyVector3 t_playerLocation)
 {
-	if (m_enemyX < t_playerLocation.x)
+	if (m_enemyLocation.x < t_playerLocation.x)
 	{
-		m_enemyX += m_enemySpeed;
-		m_enemyBody.setPosition(m_enemyX, m_enemyY);
+		m_enemyLocation.x += m_speed.x;
+		m_enemyBody.setPosition(m_enemyLocation);
 
 		m_enemyBody.setTexture(m_enemyRight);
-		m_enemyBody.setPosition( m_enemyX,m_enemyY );
+		m_enemyBody.setPosition( m_enemyLocation );
 	}
-	if (m_enemyX > t_playerLocation.x)
+	if (m_enemyLocation.x > t_playerLocation.x)
 	{
-		m_enemyX -= m_enemySpeed;
-		m_enemyBody.setPosition(m_enemyX, m_enemyY);
+		m_enemyLocation.x -= m_speed.x;
+		m_enemyBody.setPosition(m_enemyLocation);
 
 		m_enemyBody.setTexture(m_enemyLeft);
-		m_enemyBody.setPosition( m_enemyX,m_enemyY );
+		m_enemyBody.setPosition( m_enemyLocation);
 	}
-	if (m_enemyY < t_playerLocation.y)
+	if (m_enemyLocation.y < t_playerLocation.y)
 	{
-		m_enemyY += m_enemySpeed;
-		m_enemyBody.setPosition(m_enemyX, m_enemyY);
+		m_enemyLocation.y += m_speed.y;
+		m_enemyBody.setPosition(m_enemyLocation);
 
 		m_enemyBody.setTexture(m_enemyDown);
-		m_enemyBody.setPosition( m_enemyX,m_enemyY );
+		m_enemyBody.setPosition( m_enemyLocation );
 	}
-	if (m_enemyY > t_playerLocation.y)
+	if (m_enemyLocation.y > t_playerLocation.y)
 	{
-		m_enemyY -= m_enemySpeed;
-		m_enemyBody.setPosition(m_enemyX, m_enemyY);
+		m_enemyLocation.y -= m_speed.y;
+		m_enemyBody.setPosition(m_enemyLocation);
 
 		m_enemyBody.setTexture(m_enemyUp);
-		m_enemyBody.setPosition( m_enemyX,m_enemyY );
+		m_enemyBody.setPosition( m_enemyLocation);
 	}
 
 	
@@ -76,21 +74,21 @@ void Follower::enemyFollow(MyVector3 t_playerLocation)
 
 void Follower::enemyBoundaryCheck()
 {
-	if (m_enemyBody.getPosition().x <= LEFT_BOARDER)
+	if (m_enemyLocation.x <= LEFT_BOARDER)
 	{
-		m_enemyX = LEFT_BOARDER;
+		m_enemyLocation.x = LEFT_BOARDER;
 	}
 	if (m_enemyBody.getPosition().x > RIGHT_BOARDER)
 	{
-		m_enemyX = RIGHT_BOARDER;
+		m_enemyLocation.x = RIGHT_BOARDER;
 	}
 	if (m_enemyBody.getPosition().y > BOTTOM_BOARDER)
 	{
-		m_enemyY = BOTTOM_BOARDER;
+		m_enemyLocation.y = BOTTOM_BOARDER;
 	}
 	if (m_enemyBody.getPosition().y <= TOP_BOARDER)
 	{
-		m_enemyY = TOP_BOARDER;
+		m_enemyLocation.y = TOP_BOARDER;
 	}
 }
 
@@ -98,4 +96,9 @@ void Follower::update(MyVector3 t_playerLocation)
 {
 	enemyBoundaryCheck();
 	enemyFollow(t_playerLocation);
+}
+
+MyVector3 Follower::getPosition()
+{
+	return m_enemyLocation;
 }

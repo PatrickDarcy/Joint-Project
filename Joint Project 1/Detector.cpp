@@ -143,22 +143,22 @@ void Detector::spriteFacing()
 {
 	if (m_direction == EAST)
 	{
-		m_enemy1Body.setTexture(m_enemy1Right);
+		m_enemy1Body.setTexture(m_enemy1Right,true);
 		m_enemy1Body.setPosition(m_enemy1Position);
 	}
 	if (m_direction == WEST)
 	{
-		m_enemy1Body.setTexture(m_enemy1Left);
+		m_enemy1Body.setTexture(m_enemy1Left,true);
 		m_enemy1Body.setPosition(m_enemy1Position);
 	}
 	if (m_direction == NORTH)
 	{
-		m_enemy1Body.setTexture(m_enemy1Up);
+		m_enemy1Body.setTexture(m_enemy1Up,true);
 		m_enemy1Body.setPosition(m_enemy1Position);
 	}
 	if (m_direction == SOUTH)
 	{
-		m_enemy1Body.setTexture(m_enemy1Down);
+		m_enemy1Body.setTexture(m_enemy1Down,true);
 		m_enemy1Body.setPosition(m_enemy1Position);
 	}
 }

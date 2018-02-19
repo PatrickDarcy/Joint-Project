@@ -19,7 +19,7 @@ public:
 
 	Arrow();
 	void arrowShot(MyVector3 t_enemyLocation);
-	void update(MyVector3 t_playerLocation, MyVector3 t_enemyLocation, float t_downRangeLeft, float t_downRangeRight);
+	void update(MyVector3 t_playerLocation, MyVector3 t_enemyLocation);
 	void draw(sf::RenderWindow & t_window);
 	void collisionWithPlayer(MyVector3 t_playerLocation);
 };

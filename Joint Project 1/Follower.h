@@ -14,9 +14,8 @@ class Follower
 	sf::Texture m_enemyUp;
 	sf::Texture m_enemyDown;
 
-	float m_enemySpeed;
-	double m_enemyX;
-	double m_enemyY;
+	MyVector3 m_speed;
+	MyVector3 m_enemyLocation;
 
 public:
 
@@ -26,4 +25,5 @@ public:
 	void enemyFollow(MyVector3 t_playerLocation);
 	void enemyBoundaryCheck();
 	void update(MyVector3 t_playerLocation);
+	MyVector3 getPosition();
 };
