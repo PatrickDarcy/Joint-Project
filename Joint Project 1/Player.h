@@ -18,6 +18,15 @@ class Player
 	MyVector3 m_playerLocation;
 	MyVector3 m_speed;
 
+	int m_arrowOnce;
+	int m_followerOnce;
+	int m_detectorOnce;
+
+	int m_direction;
+
+	int m_lives;
+	bool m_isDead;
+
 public:
 	Player();
 
@@ -31,5 +40,8 @@ public:
 	void moveDown();
 	void boundaryCheck();
 	void collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_detectorLocation);
+	void arrowCollisions(MyVector3 t_arrowLocation);
+	bool playersDeath();
 	MyVector3 getPosition();
+	int direction();
 };

@@ -31,6 +31,11 @@ Player::Player()// default constructor
 
 	m_playerBody.setTexture(m_playerDown);
 	m_playerBody.setPosition( m_playerLocation );
+	m_arrowOnce = 0;
+	m_detectorOnce = 0;
+	m_followerOnce = 0;
+	m_lives = 4;
+	m_isDead = false;
 }
 
 sf::Sprite Player::getBody()// return the player sprite
@@ -62,6 +67,7 @@ void Player::update(MyVector3 t_followerLocation, MyVector3 t_detectorLocation)
 	collisionWithEnemies(t_followerLocation, t_detectorLocation);
 }
 
+
 void Player::draw(sf::RenderWindow & t_window)// draws the player
 {
 	t_window.draw(m_playerBody);
@@ -73,6 +79,7 @@ void Player::moveLeft()// moves the player left and changes the sprite direction
 
 	m_playerBody.setTexture(m_playerLeft);
 	m_playerBody.setPosition( m_playerLocation );
+	m_direction = WEST;
 }
 
 void Player::moveRight()// moves the player right and changes the sprite direction
@@ -81,6 +88,8 @@ void Player::moveRight()// moves the player right and changes the sprite directi
 
 	m_playerBody.setTexture(m_playerRight);
 	m_playerBody.setPosition( m_playerLocation);
+
+	m_direction = EAST;
 }
 
 void Player::moveUp()// moves the player up and shows the back of the player
@@ -89,6 +98,8 @@ void Player::moveUp()// moves the player up and shows the back of the player
 
 	m_playerBody.setTexture(m_playerUp);
 	m_playerBody.setPosition( m_playerLocation );
+
+	m_direction = NORTH;
 }
 
 void Player::moveDown()// moves the player down and shows the front of the player
@@ -97,6 +108,8 @@ void Player::moveDown()// moves the player down and shows the front of the playe
 
 	m_playerBody.setTexture(m_playerDown);
 	m_playerBody.setPosition( m_playerLocation);
+
+	m_direction = SOUTH;
 }
 
 void Player::boundaryCheck()// makes sure the player is in the boundary and not off the screen
@@ -121,20 +134,73 @@ void Player::boundaryCheck()// makes sure the player is in the boundary and not 
 
 void Player::collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_detectorLocation)
 {
+	double playerX = rand() % 400 + 1;
+	double playerY = rand() % 300 + 1;
+
 	if (m_playerLocation.x >= t_followerLocation.x && m_playerLocation.y >= t_followerLocation.y &&
-		m_playerLocation.x <= t_followerLocation.x + PLAYER_WIDTH && m_playerLocation.y <= t_followerLocation.y + PLAYER_HEIGHT)
+		m_playerLocation.x <= t_followerLocation.x + PLAYER_WIDTH && m_playerLocation.y <= t_followerLocation.y + PLAYER_HEIGHT 
+		&& m_followerOnce == 0)
 	{
 		std::cout << "Thats a sore boi" << std::endl;
+		m_playerLocation = { playerX, playerY, 0 };
+		m_lives--;
+		m_followerOnce++;
+	}
+	else
+	{
+		m_followerOnce = 0;
 	}
 
 	if (m_playerLocation.x >= t_detectorLocation.x && m_playerLocation.y >= t_detectorLocation.y &&
-		m_playerLocation.x <= t_detectorLocation.x + PLAYER_WIDTH && m_playerLocation.y <= t_detectorLocation.y + PLAYER_HEIGHT)
+		m_playerLocation.x <= t_detectorLocation.x + PLAYER_WIDTH && m_playerLocation.y <= t_detectorLocation.y + PLAYER_HEIGHT
+		&& m_detectorOnce == 0)
 	{
 		std::cout << "That hurt" << std::endl;
+		m_playerLocation = { playerX, playerY, 0 };
+		m_lives--;
+		m_detectorOnce++;
 	}
+	else
+	{
+		m_detectorOnce = 0;
+	}
+}
+
+void Player::arrowCollisions(MyVector3 t_arrowLocation)
+{
+	double playerX = rand() % 400 + 1;
+	double playerY = rand() % 300 + 1;
+	if (t_arrowLocation.x >= m_playerLocation.x && t_arrowLocation.y >= m_playerLocation.y &&
+		t_arrowLocation.x <= m_playerLocation.x + PLAYER_WIDTH && t_arrowLocation.y <= m_playerLocation.y + PLAYER_HEIGHT
+		&& m_arrowOnce == 0)
+	{
+		std::cout << "Ouch" << std::endl;
+		m_arrowOnce++;
+		m_playerLocation = { playerX, playerY, 0 };
+		m_lives--;
+	}
+	else
+	{
+		m_arrowOnce = 0;
+	}
+}
+
+bool Player::playersDeath()
+{
+	if (m_lives < 0)
+	{
+		m_isDead = true;
+	}
+	return m_isDead;
 }
 
 MyVector3 Player::getPosition()
 {
 	return m_playerLocation;
 }
+
+int Player::direction()
+{
+	return m_direction;
+}
+

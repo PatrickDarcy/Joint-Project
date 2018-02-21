@@ -21,3 +21,6 @@ const int MAX_ARCHERS = 4;
 
 const int PLAYER_WIDTH = 18;
 const int PLAYER_HEIGHT = 25;
+
+const float ARROW_WIDTH = 15;
+const float ARROW_HEIGHT = 15;

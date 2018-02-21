@@ -43,6 +43,8 @@ void Follower::enemyFollow(MyVector3 t_playerLocation)
 
 		m_enemyBody.setTexture(m_enemyRight);
 		m_enemyBody.setPosition( m_enemyLocation );
+
+		m_direction = EAST;
 	}
 	if (m_enemyLocation.x > t_playerLocation.x)
 	{
@@ -51,6 +53,8 @@ void Follower::enemyFollow(MyVector3 t_playerLocation)
 
 		m_enemyBody.setTexture(m_enemyLeft);
 		m_enemyBody.setPosition( m_enemyLocation);
+
+		m_direction = WEST;
 	}
 	if (m_enemyLocation.y < t_playerLocation.y)
 	{
@@ -59,6 +63,8 @@ void Follower::enemyFollow(MyVector3 t_playerLocation)
 
 		m_enemyBody.setTexture(m_enemyDown);
 		m_enemyBody.setPosition( m_enemyLocation );
+
+		m_direction = SOUTH;
 	}
 	if (m_enemyLocation.y > t_playerLocation.y)
 	{
@@ -67,6 +73,8 @@ void Follower::enemyFollow(MyVector3 t_playerLocation)
 
 		m_enemyBody.setTexture(m_enemyUp);
 		m_enemyBody.setPosition( m_enemyLocation);
+
+		m_direction = NORTH;
 	}
 
 	
@@ -97,6 +105,12 @@ void Follower::update(MyVector3 t_playerLocation)
 	enemyBoundaryCheck();
 	enemyFollow(t_playerLocation);
 }
+
+int Follower::direction()
+{
+	return m_direction;
+}
+
 
 MyVector3 Follower::getPosition()
 {

@@ -50,6 +50,13 @@ Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cas
 	{
 		std::cout << "error" << std::endl;
 	}
+	if (!m_endingScreen.loadFromFile("ASSETS/IMAGES/bgGameover.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+
+	m_gameOver.setTexture(m_endingScreen);
+	m_gameOver.setPosition(0, 0);
 	m_background.setTexture(m_texture);
 	m_background.setPosition( 0,0 );
 
@@ -119,14 +126,11 @@ void Game::update()
 	m_thePlayer.update(m_follower.getPosition(), m_detector.getPosition());
 	m_detector.update(m_thePlayer.getBody().getPosition());
 	m_follower.update(m_thePlayer.getBody().getPosition());
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-	{
-		m_playerArrow.update(m_follower.getPosition(), m_thePlayer.getPosition());
-	}
 	for (int index = 0; index < MAX_ARCHERS; index++)
 	{
 		m_archers[index].update(m_thePlayer.getBody().getPosition());
 		m_archerArrow[index].update(m_thePlayer.getBody().getPosition(), m_archers[index].getBody().getPosition());
+		m_thePlayer.arrowCollisions(m_archerArrow[index].getPosition());
 	}
 
 }
@@ -145,5 +149,9 @@ void Game::draw()
 		m_archers[index].draw(m_window);
 		m_archerArrow[index].draw(m_window);
 	}	
+	if (m_thePlayer.playersDeath() == true)
+	{
+		m_window.draw(m_gameOver);
+	}
 	m_window.display();
 }

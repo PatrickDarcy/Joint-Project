@@ -11,33 +11,19 @@ Archer::Archer()
 
 	m_archerBody.setTexture(m_archerDown);
 
-	m_downRangeLeft = LEFT_BOARDER;
-	m_downRangeRight = 70;
-	m_downRangeSwitch = 40;
+	m_direction = SOUTH;
+
 }
 
 void Archer::update(MyVector3 t_playerLocation)
 {
-	downRange(t_playerLocation);
 }
 
 void Archer::draw(sf::RenderWindow & t_window)
 {
-		t_window.draw(m_archerBody);
+	t_window.draw(m_archerBody);
 }
 
-void Archer::downRange(MyVector3 t_playerLocation)
-{
-	m_downRangeLeft = LEFT_BOARDER;
-	m_downRangeRight = 70;
-
-	if (t_playerLocation.x > m_downRangeLeft && t_playerLocation.x < m_downRangeRight)
-	{
-	}
-
-	m_downRangeLeft += m_downRangeSwitch;
-	m_downRangeRight += m_downRangeSwitch;
-}
 
 sf::Sprite Archer::getBody()
 {
@@ -48,3 +34,9 @@ void Archer::setPosition(sf::Vector2f t_newPos)
 {
 	m_archerBody.setPosition(t_newPos);
 }
+
+int Archer::direction()
+{
+	return m_direction;
+}
+

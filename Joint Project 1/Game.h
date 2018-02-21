@@ -29,8 +29,13 @@ class Game
 	Archer m_archers[MAX_ARCHERS];
 	Arrow m_archerArrow[MAX_ARCHERS]; 
 	Arrow m_playerArrow;
+
 	sf::Sprite m_background;
 	sf::Texture m_texture;
+
+	sf::Sprite m_gameOver;
+	sf::Texture m_endingScreen;
+
 	float m_archerX;
 	float m_archerY;
 

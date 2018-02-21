@@ -33,5 +33,6 @@ public:
 	void move();
 	void update(MyVector3 t_playerLocation);
 	void spriteFacing();
+	int direction();
 	MyVector3 getPosition();
 };

@@ -164,6 +164,12 @@ void Detector::spriteFacing()
 	}
 }
 
+int Detector::direction()
+{
+	return m_direction;
+}
+
+
 MyVector3 Detector::getPosition()
 {
 	return m_enemy1Position;

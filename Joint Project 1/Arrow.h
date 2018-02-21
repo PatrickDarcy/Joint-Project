@@ -16,7 +16,6 @@ class Arrow
 
 	MyVector3 m_arrowLocation;
 	float m_arrowSpeed;
-	int m_shootArrow;
 
 public:
 
@@ -24,5 +23,5 @@ public:
 	void arrowShot(MyVector3 t_enemyLocation);
 	void update(MyVector3 t_playerLocation, MyVector3 t_enemyLocation);
 	void draw(sf::RenderWindow & t_window);
-	void collisionWithPlayer(MyVector3 t_playerLocation);
+	MyVector3 getPosition();
 };

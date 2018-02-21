@@ -17,6 +17,8 @@ class Follower
 	MyVector3 m_speed;
 	MyVector3 m_enemyLocation;
 
+	int m_direction;
+
 public:
 
 	Follower();
@@ -25,5 +27,6 @@ public:
 	void enemyFollow(MyVector3 t_playerLocation);
 	void enemyBoundaryCheck();
 	void update(MyVector3 t_playerLocation);
+	int direction();
 	MyVector3 getPosition();
 };

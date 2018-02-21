@@ -3,8 +3,7 @@
 Arrow::Arrow()
 {
 	m_arrowSpeed = 3.5;
-	m_arrowLocation = { 31,40,0 };
-	m_shootArrow = 0;
+	m_arrowLocation = {};
 
 	if (!m_arrowDown.loadFromFile("ASSETS/IMAGES/arrowDown.png"))
 	{
@@ -31,18 +30,20 @@ void Arrow::arrowShot(MyVector3 t_shooter)
 {
 	m_arrowLocation.y += m_arrowSpeed;
 	m_arrow.setPosition(m_arrowLocation);
-	if (m_arrowLocation.y > SCREEN_HEIGHT)
+
+	if (m_arrowLocation.y > SCREEN_HEIGHT || m_arrowLocation.y < ARROW_HEIGHT)
 	{
 		m_arrowLocation = t_shooter + MyVector3{6,0,0};
-		m_shootArrow = 0;
+	}
+	if (m_arrowLocation.x > SCREEN_WIDTH || m_arrowLocation.x < ARROW_WIDTH)
+	{
+		m_arrowLocation = t_shooter;
 	}
 }
 
 void Arrow::update(MyVector3 t_target, MyVector3 t_shooter)
-{	
-	m_shootArrow++;
+{
 	arrowShot(t_shooter);
-	collisionWithPlayer(t_target);
 }
 
 void Arrow::draw(sf::RenderWindow & t_window)
@@ -50,11 +51,7 @@ void Arrow::draw(sf::RenderWindow & t_window)
 	t_window.draw(m_arrow);
 }
 
-void Arrow::collisionWithPlayer(MyVector3 t_target)
+MyVector3 Arrow::getPosition()
 {
-	if (m_arrowLocation.x >= t_target.x && m_arrowLocation.y >= t_target.y && 
-		m_arrowLocation.x <= t_target.x + PLAYER_WIDTH && m_arrowLocation.y <= t_target.y + PLAYER_HEIGHT)
-	{
-		std::cout << "Ouch" << std::endl;
-	}
+	return m_arrowLocation;
 }
