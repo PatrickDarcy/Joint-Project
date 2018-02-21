@@ -123,13 +123,14 @@ void Game::run()
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
+	m_playerArrow.update(m_thePlayer.getPosition());
 	m_thePlayer.update(m_follower.getPosition(), m_detector.getPosition());
 	m_detector.update(m_thePlayer.getBody().getPosition());
 	m_follower.update(m_thePlayer.getBody().getPosition());
 	for (int index = 0; index < MAX_ARCHERS; index++)
 	{
 		m_archers[index].update(m_thePlayer.getBody().getPosition());
-		m_archerArrow[index].update(m_thePlayer.getBody().getPosition(), m_archers[index].getBody().getPosition());
+		m_archerArrow[index].update(m_thePlayer.getBody().getPosition());
 		m_thePlayer.arrowCollisions(m_archerArrow[index].getPosition());
 	}
 

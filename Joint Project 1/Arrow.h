@@ -20,8 +20,8 @@ class Arrow
 public:
 
 	Arrow();
-	void arrowShot(MyVector3 t_enemyLocation);
-	void update(MyVector3 t_playerLocation, MyVector3 t_enemyLocation);
+	void arrowShot(MyVector3 t_shooter);
+	void update(MyVector3 t_shooter);
 	void draw(sf::RenderWindow & t_window);
 	MyVector3 getPosition();
 };

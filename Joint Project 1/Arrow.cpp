@@ -41,7 +41,7 @@ void Arrow::arrowShot(MyVector3 t_shooter)
 	}
 }
 
-void Arrow::update(MyVector3 t_target, MyVector3 t_shooter)
+void Arrow::update(MyVector3 t_shooter)
 {
 	arrowShot(t_shooter);
 }
