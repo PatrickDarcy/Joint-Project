@@ -54,6 +54,20 @@ Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cas
 	{
 		std::cout << "error" << std::endl;
 	}
+	if (!m_hearts.loadFromFile("ASSETS/IMAGES/lives.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+
+	m_heartX = 273;
+	m_heartY = 20;
+
+	for (int index = 0; index < MAX_HEALTH; index++)
+	{
+		m_health[index].setTexture(m_hearts);
+		m_health[index].setPosition(sf::Vector2f{ m_heartX,m_heartY });
+		m_heartX += 10;
+	}
 
 	m_gameOver.setTexture(m_endingScreen);
 	m_gameOver.setPosition(0, 0);
@@ -123,17 +137,18 @@ void Game::run()
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
-	m_playerArrow.update(m_thePlayer.getPosition());
-	m_thePlayer.update(m_follower.getPosition(), m_detector.getPosition());
-	m_detector.update(m_thePlayer.getBody().getPosition());
-	m_follower.update(m_thePlayer.getBody().getPosition());
-	for (int index = 0; index < MAX_ARCHERS; index++)
+	if (m_thePlayer.playersDeath() == false)
 	{
-		m_archers[index].update(m_thePlayer.getBody().getPosition());
-		m_archerArrow[index].update(m_thePlayer.getBody().getPosition());
-		m_thePlayer.arrowCollisions(m_archerArrow[index].getPosition());
+		m_thePlayer.update(m_follower.getPosition(), m_detector.getPosition());
+		m_detector.update(m_thePlayer.getBody().getPosition());
+		m_follower.update(m_thePlayer.getBody().getPosition());
+		for (int index = 0; index < MAX_ARCHERS; index++)
+		{
+			m_archers[index].update(m_thePlayer.getPosition());
+			m_archerArrow[index].update(m_archers[index].getBody().getPosition());
+			m_thePlayer.arrowCollisions(m_archerArrow[index].getPosition());
+		}
 	}
-
 }
 
 void Game::draw()
@@ -153,6 +168,10 @@ void Game::draw()
 	if (m_thePlayer.playersDeath() == true)
 	{
 		m_window.draw(m_gameOver);
+	}
+	for (int index = 0; index < m_thePlayer.getLives(); index++)
+	{
+		m_window.draw(m_health[index]);
 	}
 	m_window.display();
 }

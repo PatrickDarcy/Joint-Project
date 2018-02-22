@@ -24,3 +24,5 @@ const int PLAYER_HEIGHT = 25;
 
 const float ARROW_WIDTH = 15;
 const float ARROW_HEIGHT = 15;
+
+const int MAX_HEALTH = 4;

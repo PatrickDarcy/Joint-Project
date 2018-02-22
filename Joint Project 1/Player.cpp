@@ -8,6 +8,7 @@ Player::Player()// default constructor
 	m_speed = { 2.5,2.5,0 };
 	m_playerLocation = { 200,160,0 };
 
+	// Player textures loading in
 	if (!m_playerDown.loadFromFile("ASSETS/IMAGES/down.png"))
 	{
 		std::cout << "error" << std::endl;
@@ -28,6 +29,23 @@ Player::Player()// default constructor
 	{
 		std::cout << "error" << std::endl;
 	}
+	// Arrow textures loading in
+	if (!m_arrowDown.loadFromFile("ASSETS/IMAGES/arrowDown.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!m_arrowUp.loadFromFile("ASSETS/IMAGES/arrowUp.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!m_arrowRight.loadFromFile("ASSETS/IMAGES/arrowRight.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!m_arrowLeft.loadFromFile("ASSETS/IMAGES/arrowLeft.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
 
 	m_playerBody.setTexture(m_playerDown);
 	m_playerBody.setPosition( m_playerLocation );
@@ -36,6 +54,8 @@ Player::Player()// default constructor
 	m_followerOnce = 0;
 	m_lives = 4;
 	m_isDead = false;
+	m_arrowSpeed = { 2.5,2.5,0 };
+	m_arrowLocation = {-200,-200,0};
 }
 
 sf::Sprite Player::getBody()// return the player sprite
@@ -63,6 +83,8 @@ void Player::update(MyVector3 t_followerLocation, MyVector3 t_detectorLocation)
 		moveDown();
 	}
 
+	arrowShoot();
+
 	boundaryCheck();
 	collisionWithEnemies(t_followerLocation, t_detectorLocation);
 }
@@ -71,6 +93,7 @@ void Player::update(MyVector3 t_followerLocation, MyVector3 t_detectorLocation)
 void Player::draw(sf::RenderWindow & t_window)// draws the player
 {
 	t_window.draw(m_playerBody);
+	t_window.draw(m_playerArrow);
 }
 
 void Player::moveLeft()// moves the player left and changes the sprite direction
@@ -187,16 +210,52 @@ void Player::arrowCollisions(MyVector3 t_arrowLocation)
 
 bool Player::playersDeath()
 {
-	if (m_lives < 0)
+	if (m_lives <= 0)
 	{
 		m_isDead = true;
 	}
 	return m_isDead;
 }
 
+void Player::arrowShoot()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		m_arrowLocation = m_playerLocation;
+		if (m_direction == EAST)
+		{
+			m_arrowSpeed = { 3.5,0.0,0 };
+			m_playerArrow.setTexture(m_arrowRight);
+		}
+		if (m_direction == WEST)
+		{
+			m_arrowSpeed = { -3.5,0.0,0 };
+			m_playerArrow.setTexture(m_arrowLeft);
+		}
+		if (m_direction == SOUTH)
+		{
+			m_arrowSpeed = {0.0,3.5,0 };
+			m_playerArrow.setTexture(m_arrowDown);
+		}
+		if (m_direction == NORTH)
+		{
+			m_arrowSpeed = { 0.0,-3.5,0 };
+			m_playerArrow.setTexture(m_arrowUp);
+		}
+	}
+
+	m_arrowLocation += m_arrowSpeed;
+	m_playerArrow.setPosition(m_arrowLocation);
+}
+
 MyVector3 Player::getPosition()
 {
 	return m_playerLocation;
+}
+
+int Player::getLives()
+{
+	return m_lives;
 }
 
 int Player::direction()
