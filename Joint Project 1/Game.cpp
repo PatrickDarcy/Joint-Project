@@ -1,9 +1,9 @@
 // Name: Patrick Darcy
 // Login: C00226157
 // Date: 29/01/18
-// Time taken: 
+// Time taken: 20 hrs
 //---------------------------------------------------------------------------
-// Project description: TEMPLATE
+// Project description: Zelda remake
 // ---------------------------------------------------------------------------
 // Known Bugs:
 // ?
@@ -42,16 +42,56 @@ int main()
 	return 0;
 }
 
-Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT)), "Joint Project Game", sf::Style::Default)
-, thePlayer{}
+Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT)), "Joint Project Game", sf::Style::Default)// the games default constructor
+, m_thePlayer{}
 // Default constructor
 {
-	if (!texture.loadFromFile("ASSETS/IMAGES/bg.png"))
+	if (!m_texture.loadFromFile("ASSETS/IMAGES/bg.png"))
 	{
 		std::cout << "error" << std::endl;
 	}
-	m_background.setTexture(texture);
-	m_background.setPosition(sf::Vector2f{ 0,0 });
+	if (!m_endingScreen.loadFromFile("ASSETS/IMAGES/bgGameover.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!m_hearts.loadFromFile("ASSETS/IMAGES/lives.png"))
+	{
+		std::cout << "error" << std::endl;
+	}
+	if (!m_font.loadFromFile("ASSETS/FONTS/BebasNeue.otf"))
+	{
+		std::cout << "error" << std::endl;
+	}
+
+
+	m_message.setFont(m_font);
+	m_message.setCharacterSize(14);
+	m_message.setPosition(25, 25);
+	m_message.setFillColor(sf::Color::Black);
+
+	m_heartX = 273;
+	m_heartY = 20;
+
+	for (int index = 0; index < MAX_HEALTH; index++)
+	{
+		m_health[index].setTexture(m_hearts);
+		m_health[index].setPosition(sf::Vector2f{ m_heartX,m_heartY });
+		m_heartX += 10;
+	}
+
+	m_gameOver.setTexture(m_endingScreen);
+	m_gameOver.setPosition(0, 0);
+	m_background.setTexture(m_texture);
+	m_background.setPosition( 0,0 );
+
+	m_archerX = 25;
+	m_archerY = 40;
+
+	for (int index = 0; index < MAX_ARCHERS; index++)
+	{
+		m_archers[index].setPosition(sf::Vector2f{ m_archerX, m_archerY });
+		m_archerX += 110;
+	}
 }
 
 void Game::loadContent()
@@ -107,27 +147,19 @@ void Game::run()
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
-	thePlayer.boundaryCheck();
-
-	// get keyboard input
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (m_thePlayer.playersDeath() == false)
 	{
-		thePlayer.moveLeft();
+		m_thePlayer.update(m_follower.getPosition(), m_detector.getPosition(), m_follower.ifDead(), m_detector.isDead());
+		m_detector.update(m_thePlayer.getBody().getPosition(), m_thePlayer.getArrow());
+		m_follower.update(m_thePlayer.getBody().getPosition(),m_thePlayer.getArrow());
+		for (int index = 0; index < MAX_ARCHERS; index++)
+		{
+			m_archers[index].update(m_thePlayer.getPosition());
+			m_archerArrow[index].update(m_archers[index].getBody().getPosition());
+			m_thePlayer.arrowCollisions(m_archerArrow[index].getPosition());
+		}
+		m_message.setString("SCORE: " + std::to_string(m_thePlayer.playersScore()));
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		thePlayer.moveRight();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		thePlayer.moveUp();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		thePlayer.moveDown();
-	}
-
-	// update any game variables here ...
 
 }
 
@@ -137,6 +169,25 @@ void Game::draw()
 	// Clear the screen and draw your game sprites
 	m_window.clear();
 	m_window.draw(m_background);
-	thePlayer.draw(m_window);
+	m_thePlayer.draw(m_window);
+	m_follower.draw(m_window);
+	m_detector.draw(m_window);
+	for (int index = 0; index < MAX_ARCHERS; index++)
+	{
+		m_archers[index].draw(m_window);
+		m_archerArrow[index].draw(m_window);
+	}	
+	if (m_thePlayer.playersDeath() == true)
+	{
+		m_window.draw(m_gameOver);
+		m_message.setCharacterSize(20);
+		m_message.setFillColor(sf::Color::Yellow);
+		m_message.setPosition({ 160,200 });
+	}
+	for (int index = 0; index < m_thePlayer.getLives(); index++)
+	{
+		m_window.draw(m_health[index]);
+	}
+	m_window.draw(m_message);
 	m_window.display();
 }

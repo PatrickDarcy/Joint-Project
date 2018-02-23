@@ -122,12 +122,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Archers.cpp" />
+    <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="Follower.cpp" />
+    <ClCompile Include="Detector.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MyVector3.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Archers.h" />
+    <ClInclude Include="Arrow.h" />
+    <ClInclude Include="Follower.h" />
+    <ClInclude Include="Detector.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="MyVector3.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
