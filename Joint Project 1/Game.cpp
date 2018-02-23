@@ -1,7 +1,7 @@
 // Name: Patrick Darcy
 // Login: C00226157
 // Date: 29/01/18
-// Time taken: 
+// Time taken: 20 hrs
 //---------------------------------------------------------------------------
 // Project description: Zelda remake
 // ---------------------------------------------------------------------------
@@ -42,7 +42,7 @@ int main()
 	return 0;
 }
 
-Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT)), "Joint Project Game", sf::Style::Default)
+Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT)), "Joint Project Game", sf::Style::Default)// the games default constructor
 , m_thePlayer{}
 // Default constructor
 {
@@ -62,6 +62,7 @@ Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cas
 	{
 		std::cout << "error" << std::endl;
 	}
+
 
 	m_message.setFont(m_font);
 	m_message.setCharacterSize(14);
@@ -149,7 +150,7 @@ void Game::update()
 	if (m_thePlayer.playersDeath() == false)
 	{
 		m_thePlayer.update(m_follower.getPosition(), m_detector.getPosition(), m_follower.ifDead(), m_detector.isDead());
-		m_detector.update(m_thePlayer.getBody().getPosition());
+		m_detector.update(m_thePlayer.getBody().getPosition(), m_thePlayer.getArrow());
 		m_follower.update(m_thePlayer.getBody().getPosition(),m_thePlayer.getArrow());
 		for (int index = 0; index < MAX_ARCHERS; index++)
 		{
@@ -179,6 +180,9 @@ void Game::draw()
 	if (m_thePlayer.playersDeath() == true)
 	{
 		m_window.draw(m_gameOver);
+		m_message.setCharacterSize(20);
+		m_message.setFillColor(sf::Color::Yellow);
+		m_message.setPosition({ 160,200 });
 	}
 	for (int index = 0; index < m_thePlayer.getLives(); index++)
 	{

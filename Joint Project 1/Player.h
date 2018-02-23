@@ -2,6 +2,7 @@
 #pragma once
 
 #include<SFML\Graphics.hpp>
+#include<SFML\Audio.hpp>
 #include"Globals.h"
 #include<iostream>
 #include "MyVector3.h"
@@ -14,6 +15,9 @@ class Player
 	sf::Texture m_playerRight;
 	sf::Texture m_playerUp;
 	sf::Texture m_playerDown;
+
+	sf::Sound m_linkHurt;
+	sf::SoundBuffer m_linkhurt;
 
 	sf::Sprite m_playerArrow;
 	sf::Texture m_arrowDown;

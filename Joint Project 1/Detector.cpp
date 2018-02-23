@@ -1,6 +1,6 @@
 #include "Detector.h"
 
-Detector::Detector()
+Detector::Detector()// the detectors default position
 {
 	m_enemy1Speed = MyVector3{ 1.5f,1.5f,0 };
 	m_enemy1Location = MyVector3 (180.0f , 80.0f, 0.0f);
@@ -21,6 +21,13 @@ Detector::Detector()
 	{
 		std::cout << "error" << std::endl;
 	}
+	if (!m_arrowHit.loadFromFile("ASSETS/SOUNDS/arrowHit.wav"))
+	{
+		std::cout << "error" << std::endl;
+	}
+
+	m_arrowhit.setBuffer(m_arrowHit);
+	m_arrowhit.setVolume(100000);
 
 	m_enemy1Body.setTexture(m_enemy1Down);
 	m_enemy1Body.setPosition( m_enemy1Location);
@@ -34,12 +41,12 @@ Detector::Detector()
 	m_respawn = false;
 }
 
-void Detector::draw(sf::RenderWindow & t_window)
+void Detector::draw(sf::RenderWindow & t_window)// draws the detector enemy
 {
 	t_window.draw(m_enemy1Body);
 }
 
-void Detector::enemyDetection(MyVector3 t_playerLocation)
+void Detector::enemyDetection(MyVector3 t_playerLocation)// this checks if the player has been detected by the enemy
 {
 	if ((t_playerLocation - m_detectionZone.getPosition()).length() <= m_detectionRadius)
 	{
@@ -53,7 +60,7 @@ void Detector::enemyDetection(MyVector3 t_playerLocation)
 
 }
 
-void Detector::enemyFollow(MyVector3 t_playerLocation)
+void Detector::enemyFollow(MyVector3 t_playerLocation)// this makes the enemy follow the player
 {
 	float enemySpeedX = 1.5;
 	float enemySpeedY = 1.5;
@@ -82,7 +89,7 @@ void Detector::enemyFollow(MyVector3 t_playerLocation)
 }
 
 
-void Detector::enemyBoundaryCheck()
+void Detector::enemyBoundaryCheck()// makes sure the enemy is in the boundary
 {
 	if (m_enemy1Body.getPosition().x <= LEFT_BOARDER)
 	{
@@ -103,29 +110,26 @@ void Detector::enemyBoundaryCheck()
 
 }
 
-void Detector::move()
+void Detector::move()// this moves the enemy whilst the player has not been detected
 {
-	if (m_enemy1Location.x >= LEFT_BOARDER && m_enemy1Location.x <= RIGHT_BOARDER)
-	{
-		m_enemy1Location.x += m_enemy1Speed.x;
-	}
+
 	if (m_enemy1Location.x >= RIGHT_BOARDER)
 	{
 		m_enemy1Speed.x = -(m_enemy1Speed.x);
-		m_enemy1Body.setPosition(m_enemy1Location);
 		m_direction = WEST;
 	}
 	if (m_enemy1Location.x <= LEFT_BOARDER)
 	{
 		m_enemy1Speed.x = -(m_enemy1Speed.x);
-		m_enemy1Body.setPosition(m_enemy1Location);
 		m_direction = EAST;
 	}
+
+	m_enemy1Location.x += m_enemy1Speed.x;
 	m_enemy1Body.setPosition(m_enemy1Location);
 	m_detectionZone.setPosition(m_enemy1Location);
 }
 
-void Detector::update(MyVector3 t_playerLocation)
+void Detector::update(MyVector3 t_playerLocation, MyVector3 t_arrowLocation)// the detectors update
 {
 	spriteFacing();
 	if (m_followPlayer == true)
@@ -139,9 +143,10 @@ void Detector::update(MyVector3 t_playerLocation)
 
 	enemyDetection(t_playerLocation);
 	enemyBoundaryCheck();
+	shotByPlayer(t_arrowLocation);
 }
 
-void Detector::spriteFacing()
+void Detector::spriteFacing()// changes the spite to face the right direction
 {
 	if (m_direction == EAST)
 	{
@@ -165,7 +170,7 @@ void Detector::spriteFacing()
 	}
 }
 
-void Detector::shotByPlayer(MyVector3 t_playersArrow)
+void Detector::shotByPlayer(MyVector3 t_playersArrow)// this respawns the enemy and increases his detection radius when it is shot by the player
 {
 	if (t_playersArrow.x >= m_enemy1Location.x && t_playersArrow.y >= m_enemy1Location.y &&
 		t_playersArrow.x <= m_enemy1Location.x + SPRITE_WIDTH && t_playersArrow.y <= m_enemy1Location.y + SPRITE_HEIGHT)
@@ -173,10 +178,12 @@ void Detector::shotByPlayer(MyVector3 t_playersArrow)
 		m_respawn = true;
 		m_enemy1Location = RESPAWN;
 		m_enemy1Body.setPosition(m_enemy1Location);
+		m_detectionRadius++;
 		if (m_enemy1Speed.x <= MAX_ENEMY_SPEED.x && m_enemy1Speed.y <= MAX_ENEMY_SPEED.y)
 		{
 			m_enemy1Speed += {0.1, 0.1, 0};
 		}
+		m_arrowhit.play();
 	}
 	else
 	{

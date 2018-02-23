@@ -9,6 +9,7 @@
 #include "MyVector3.h"
 
 #include "SFML/Graphics.hpp" 
+#include "SFML\Audio.hpp"
 #include <iostream>
 #include <cstdlib>  // include support for randomizing
 #include <ctime>   // supports ctime function

@@ -2,6 +2,7 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
+#include <SFML\Audio.hpp>
 #include "Globals.h"
 #include <iostream>
 #include "MyVector3.h"
@@ -13,6 +14,9 @@ class Detector
 	sf::Texture m_enemy1Right;
 	sf::Texture m_enemy1Up;
 	sf::Texture m_enemy1Down;
+
+	sf::SoundBuffer m_arrowHit;
+	sf::Sound m_arrowhit;
 
 	sf::CircleShape m_detectionZone;
 
@@ -32,7 +36,7 @@ public:
 	void enemyFollow(MyVector3 t_playerLocation);
 	void enemyBoundaryCheck();
 	void move();
-	void update(MyVector3 t_playerLocation);
+	void update(MyVector3 t_playerLocation, MyVector3 t_arrowLocation);
 	void spriteFacing();
 	void shotByPlayer(MyVector3 t_playerArrow);
 	bool isDead();

@@ -46,6 +46,13 @@ Player::Player()// default constructor
 	{
 		std::cout << "error" << std::endl;
 	}
+	if (!m_linkhurt.loadFromFile("ASSETS/SOUNDS/linkHurt.wav"))
+	{
+		std::cout << "error" << std::endl;
+	}
+
+	m_linkHurt.setBuffer(m_linkhurt);
+	m_linkHurt.setVolume(100);
 
 	m_playerBody.setTexture(m_playerDown);
 	m_playerBody.setPosition( m_playerLocation );
@@ -56,7 +63,7 @@ Player::Player()// default constructor
 	m_isDead = false;
 	m_arrowSpeed = { 2.5,2.5,0 };
 	m_arrowLocation = {-200,-200,0};
-	m_score = 0;
+	m_score = 0; 
 }
 
 sf::Sprite Player::getBody()// return the player sprite
@@ -158,7 +165,7 @@ void Player::boundaryCheck()// makes sure the player is in the boundary and not 
 	}
 }
 
-void Player::collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_detectorLocation)
+void Player::collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_detectorLocation)// this respawns the player when they have been hit by an enemy
 {
 	double playerX = rand() % 400 + 1;
 	double playerY = rand() % 300 + 1;
@@ -171,6 +178,7 @@ void Player::collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_dete
 		m_playerLocation = { playerX, playerY, 0 };
 		m_lives--;
 		m_followerOnce++;
+		m_linkHurt.play();
 	}
 	else
 	{
@@ -185,6 +193,7 @@ void Player::collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_dete
 		m_playerLocation = { playerX, playerY, 0 };
 		m_lives--;
 		m_detectorOnce++;
+		m_linkHurt.play();
 	}
 	else
 	{
@@ -192,7 +201,7 @@ void Player::collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_dete
 	}
 }
 
-void Player::arrowCollisions(MyVector3 t_arrowLocation)
+void Player::arrowCollisions(MyVector3 t_arrowLocation)// this respawns the player when they have benn shot
 {
 	double playerX = rand() % 400 + 1;
 	double playerY = rand() % 300 + 1;
@@ -204,6 +213,7 @@ void Player::arrowCollisions(MyVector3 t_arrowLocation)
 		m_arrowOnce++;
 		m_playerLocation = { playerX, playerY, 0 };
 		m_lives--;
+		m_linkHurt.play();
 	}
 	else
 	{
@@ -220,15 +230,16 @@ bool Player::playersDeath()
 	return m_isDead;
 }
 
-void Player::arrowShoot()
+void Player::arrowShoot()// this shoots the players arrows
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		m_arrowLocation = m_playerLocation;
+
 		if (m_direction == EAST)
 		{
 			m_arrowSpeed = { 3.5,0.0,0 };
-			m_playerArrow.setTexture(m_arrowRight,true);
+			m_playerArrow.setTexture(m_arrowRight, true);
 		}
 		if (m_direction == WEST)
 		{
@@ -237,7 +248,7 @@ void Player::arrowShoot()
 		}
 		if (m_direction == SOUTH)
 		{
-			m_arrowSpeed = {0.0,3.5,0 };
+			m_arrowSpeed = { 0.0,3.5,0 };
 			m_playerArrow.setTexture(m_arrowDown, true);
 		}
 		if (m_direction == NORTH)
@@ -251,7 +262,7 @@ void Player::arrowShoot()
 	m_playerArrow.setPosition(m_arrowLocation);
 }
 
-void Player::followerHit(bool t_followerhit)
+void Player::followerHit(bool t_followerhit)// this increases the players score when it shoots the follower
 {
 	if (t_followerhit == true)
 	{
@@ -261,7 +272,7 @@ void Player::followerHit(bool t_followerhit)
 	}
 }
 
-void Player::detectorHit(bool t_detectorHit)
+void Player::detectorHit(bool t_detectorHit)// this increases the players score when it shoots the detector
 {
 	if (t_detectorHit == true)
 	{
