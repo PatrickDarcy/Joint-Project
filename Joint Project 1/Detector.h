@@ -17,10 +17,11 @@ class Detector
 	sf::CircleShape m_detectionZone;
 
 	MyVector3 m_enemy1Speed;
-	MyVector3 m_enemy1Position;
+	MyVector3 m_enemy1Location;
 	float m_detectionRadius;
 	int m_direction;
 	bool m_followPlayer;
+	bool m_respawn;
 
 public:
 
@@ -33,6 +34,8 @@ public:
 	void move();
 	void update(MyVector3 t_playerLocation);
 	void spriteFacing();
+	void shotByPlayer(MyVector3 t_playerArrow);
+	bool isDead();
 	int direction();
 	MyVector3 getPosition();
 };

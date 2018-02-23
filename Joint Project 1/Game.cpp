@@ -58,6 +58,15 @@ Game::Game() : m_window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cas
 	{
 		std::cout << "error" << std::endl;
 	}
+	if (!m_font.loadFromFile("ASSETS/FONTS/BebasNeue.otf"))
+	{
+		std::cout << "error" << std::endl;
+	}
+
+	m_message.setFont(m_font);
+	m_message.setCharacterSize(14);
+	m_message.setPosition(25, 25);
+	m_message.setFillColor(sf::Color::Black);
 
 	m_heartX = 273;
 	m_heartY = 20;
@@ -139,16 +148,18 @@ void Game::update()
 {
 	if (m_thePlayer.playersDeath() == false)
 	{
-		m_thePlayer.update(m_follower.getPosition(), m_detector.getPosition());
+		m_thePlayer.update(m_follower.getPosition(), m_detector.getPosition(), m_follower.ifDead(), m_detector.isDead());
 		m_detector.update(m_thePlayer.getBody().getPosition());
-		m_follower.update(m_thePlayer.getBody().getPosition());
+		m_follower.update(m_thePlayer.getBody().getPosition(),m_thePlayer.getArrow());
 		for (int index = 0; index < MAX_ARCHERS; index++)
 		{
 			m_archers[index].update(m_thePlayer.getPosition());
 			m_archerArrow[index].update(m_archers[index].getBody().getPosition());
 			m_thePlayer.arrowCollisions(m_archerArrow[index].getPosition());
 		}
+		m_message.setString("SCORE: " + std::to_string(m_thePlayer.playersScore()));
 	}
+
 }
 
 void Game::draw()
@@ -173,5 +184,6 @@ void Game::draw()
 	{
 		m_window.draw(m_health[index]);
 	}
+	m_window.draw(m_message);
 	m_window.display();
 }

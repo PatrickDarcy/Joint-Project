@@ -1,5 +1,6 @@
 // Contains the game globals
 #pragma once
+#include "MyVector3.h"
 
 //The direction the sprite is moving in
 const int static WEST = 1;
@@ -19,10 +20,15 @@ const float CENTER_OF_CIRCLE = 38;
 
 const int MAX_ARCHERS = 4;
 
-const int PLAYER_WIDTH = 18;
-const int PLAYER_HEIGHT = 25;
+const int SPRITE_WIDTH = 18;
+const int SPRITE_HEIGHT = 25;
 
 const float ARROW_WIDTH = 15;
 const float ARROW_HEIGHT = 15;
 
 const int MAX_HEALTH = 4;
+
+const int ENEMY_HIT = 100;
+
+const MyVector3 RESPAWN = { 200,80,0 };
+const MyVector3 MAX_ENEMY_SPEED = { 2,2,0 };

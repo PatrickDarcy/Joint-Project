@@ -18,6 +18,7 @@ class Follower
 	MyVector3 m_enemyLocation;
 
 	int m_direction;
+	bool m_respawn;
 
 public:
 
@@ -26,7 +27,9 @@ public:
 	void draw(sf::RenderWindow &t_window);
 	void enemyFollow(MyVector3 t_playerLocation);
 	void enemyBoundaryCheck();
-	void update(MyVector3 t_playerLocation);
+	void update(MyVector3 t_playerLocation, MyVector3 t_platersArrow);
+	void shotByPlayer(MyVector3 t_playersArrow);
 	int direction();
+	bool ifDead();
 	MyVector3 getPosition();
 };

@@ -56,6 +56,7 @@ Player::Player()// default constructor
 	m_isDead = false;
 	m_arrowSpeed = { 2.5,2.5,0 };
 	m_arrowLocation = {-200,-200,0};
+	m_score = 0;
 }
 
 sf::Sprite Player::getBody()// return the player sprite
@@ -63,7 +64,7 @@ sf::Sprite Player::getBody()// return the player sprite
 	return sf::Sprite(m_playerBody);
 }
 
-void Player::update(MyVector3 t_followerLocation, MyVector3 t_detectorLocation)
+void Player::update(MyVector3 t_followerLocation, MyVector3 t_detectorLocation, bool t_followerHit, bool t_detectorHit)
 {
 	// get keyboard input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -87,6 +88,7 @@ void Player::update(MyVector3 t_followerLocation, MyVector3 t_detectorLocation)
 
 	boundaryCheck();
 	collisionWithEnemies(t_followerLocation, t_detectorLocation);
+	followerHit(t_followerHit);
 }
 
 
@@ -94,6 +96,7 @@ void Player::draw(sf::RenderWindow & t_window)// draws the player
 {
 	t_window.draw(m_playerBody);
 	t_window.draw(m_playerArrow);
+
 }
 
 void Player::moveLeft()// moves the player left and changes the sprite direction
@@ -161,7 +164,7 @@ void Player::collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_dete
 	double playerY = rand() % 300 + 1;
 
 	if (m_playerLocation.x >= t_followerLocation.x && m_playerLocation.y >= t_followerLocation.y &&
-		m_playerLocation.x <= t_followerLocation.x + PLAYER_WIDTH && m_playerLocation.y <= t_followerLocation.y + PLAYER_HEIGHT 
+		m_playerLocation.x <= t_followerLocation.x + SPRITE_WIDTH && m_playerLocation.y <= t_followerLocation.y + SPRITE_HEIGHT 
 		&& m_followerOnce == 0)
 	{
 		std::cout << "Thats a sore boi" << std::endl;
@@ -175,7 +178,7 @@ void Player::collisionWithEnemies(MyVector3 t_followerLocation, MyVector3 t_dete
 	}
 
 	if (m_playerLocation.x >= t_detectorLocation.x && m_playerLocation.y >= t_detectorLocation.y &&
-		m_playerLocation.x <= t_detectorLocation.x + PLAYER_WIDTH && m_playerLocation.y <= t_detectorLocation.y + PLAYER_HEIGHT
+		m_playerLocation.x <= t_detectorLocation.x + SPRITE_WIDTH && m_playerLocation.y <= t_detectorLocation.y + SPRITE_HEIGHT
 		&& m_detectorOnce == 0)
 	{
 		std::cout << "That hurt" << std::endl;
@@ -194,7 +197,7 @@ void Player::arrowCollisions(MyVector3 t_arrowLocation)
 	double playerX = rand() % 400 + 1;
 	double playerY = rand() % 300 + 1;
 	if (t_arrowLocation.x >= m_playerLocation.x && t_arrowLocation.y >= m_playerLocation.y &&
-		t_arrowLocation.x <= m_playerLocation.x + PLAYER_WIDTH && t_arrowLocation.y <= m_playerLocation.y + PLAYER_HEIGHT
+		t_arrowLocation.x <= m_playerLocation.x + SPRITE_WIDTH && t_arrowLocation.y <= m_playerLocation.y + SPRITE_HEIGHT
 		&& m_arrowOnce == 0)
 	{
 		std::cout << "Ouch" << std::endl;
@@ -225,22 +228,22 @@ void Player::arrowShoot()
 		if (m_direction == EAST)
 		{
 			m_arrowSpeed = { 3.5,0.0,0 };
-			m_playerArrow.setTexture(m_arrowRight);
+			m_playerArrow.setTexture(m_arrowRight,true);
 		}
 		if (m_direction == WEST)
 		{
 			m_arrowSpeed = { -3.5,0.0,0 };
-			m_playerArrow.setTexture(m_arrowLeft);
+			m_playerArrow.setTexture(m_arrowLeft, true);
 		}
 		if (m_direction == SOUTH)
 		{
 			m_arrowSpeed = {0.0,3.5,0 };
-			m_playerArrow.setTexture(m_arrowDown);
+			m_playerArrow.setTexture(m_arrowDown, true);
 		}
 		if (m_direction == NORTH)
 		{
 			m_arrowSpeed = { 0.0,-3.5,0 };
-			m_playerArrow.setTexture(m_arrowUp);
+			m_playerArrow.setTexture(m_arrowUp, true);
 		}
 	}
 
@@ -248,9 +251,40 @@ void Player::arrowShoot()
 	m_playerArrow.setPosition(m_arrowLocation);
 }
 
+void Player::followerHit(bool t_followerhit)
+{
+	if (t_followerhit == true)
+	{
+		m_arrowLocation = { -200,-200,0 };
+		m_playerArrow.setPosition(m_arrowLocation);
+		m_score += ENEMY_HIT;
+	}
+}
+
+void Player::detectorHit(bool t_detectorHit)
+{
+	if (t_detectorHit == true)
+	{
+		m_arrowLocation = { -200,-200,0 };
+		m_playerArrow.setPosition(m_arrowLocation);
+		m_score += ENEMY_HIT;
+	}
+}
+
+
 MyVector3 Player::getPosition()
 {
 	return m_playerLocation;
+}
+
+MyVector3 Player::getArrow()
+{
+	return m_arrowLocation;
+}
+
+int Player::playersScore()
+{
+	return m_score;
 }
 
 int Player::getLives()

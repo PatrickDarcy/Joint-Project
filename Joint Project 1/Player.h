@@ -34,13 +34,14 @@ class Player
 
 	int m_lives;
 	bool m_isDead;
+	int m_score;
 
 public:
 	Player();
 
 
 	sf::Sprite getBody();
-	void update(MyVector3 t_followerLocation, MyVector3 t_detectorLocation);
+	void update(MyVector3 t_followerLocation, MyVector3 t_detectorLocation, bool t_followerHit, bool t_detectorHit);
 	void draw(sf::RenderWindow &t_window);
 	void moveLeft();
 	void moveRight();
@@ -51,7 +52,11 @@ public:
 	void arrowCollisions(MyVector3 t_arrowLocation);
 	bool playersDeath();
 	void arrowShoot();
+	void followerHit(bool t_followerhit);
+	void detectorHit(bool t_detectorHit);
 	MyVector3 getPosition();
+	MyVector3 getArrow();
+	int playersScore();
 	int getLives();
 	int direction();
 };

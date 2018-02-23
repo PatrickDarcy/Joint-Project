@@ -1,4 +1,7 @@
-﻿  Game.cpp
-c:\users\c00226157\documents\github\joint-project\joint project 1\game.cpp(97): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  Player.cpp
+  Game.cpp
+c:\users\c00226157\documents\github\joint-project\joint project 1\game.cpp(106): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Detector.cpp
+  Generating Code...
   Joint Project 1.vcxproj -> C:\Users\C00226157\Documents\GitHub\Joint-Project\Debug\Joint Project 1.exe
   Joint Project 1.vcxproj -> C:\Users\C00226157\Documents\GitHub\Joint-Project\Debug\Joint Project 1.pdb (Partial PDB)

@@ -2,7 +2,7 @@
 
 Follower::Follower()
 {
-	m_enemyLocation = { 200,80,0 };
+	m_enemyLocation = RESPAWN;
 	m_speed = { 1,1,0 };
 
 	if (!m_enemyDown.loadFromFile("ASSETS/IMAGES/enemy1Down.png"))
@@ -27,6 +27,8 @@ Follower::Follower()
 	}
 	m_enemyBody.setTexture(m_enemyDown);
 	m_enemyBody.setPosition( m_enemyLocation);
+
+	m_respawn = false;
 }
 
 void Follower::draw(sf::RenderWindow & t_window)
@@ -100,15 +102,40 @@ void Follower::enemyBoundaryCheck()
 	}
 }
 
-void Follower::update(MyVector3 t_playerLocation)
+void Follower::update(MyVector3 t_playerLocation, MyVector3 t_playersArrow)
 {
 	enemyBoundaryCheck();
 	enemyFollow(t_playerLocation);
+	shotByPlayer(t_playersArrow);
+}
+
+void Follower::shotByPlayer(MyVector3 t_playersArrow)
+{
+	if (t_playersArrow.x >= m_enemyLocation.x && t_playersArrow.y >= m_enemyLocation.y &&
+		t_playersArrow.x <= m_enemyLocation.x + SPRITE_WIDTH && t_playersArrow.y <= m_enemyLocation.y + SPRITE_HEIGHT)
+	{
+		m_respawn = true;
+		m_enemyLocation = RESPAWN;
+		m_enemyBody.setPosition(m_enemyLocation);
+		if (m_speed.x <= MAX_ENEMY_SPEED.x && m_speed.y <= MAX_ENEMY_SPEED.y)
+		{
+			m_speed += {0.1, 0.1, 0};
+		}
+	}
+	else
+	{
+		m_respawn = false;
+	}
 }
 
 int Follower::direction()
 {
 	return m_direction;
+}
+
+bool Follower::ifDead()
+{
+	return m_respawn;
 }
 
 

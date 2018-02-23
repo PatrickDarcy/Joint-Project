@@ -29,6 +29,9 @@ class Game
 	Archer m_archers[MAX_ARCHERS];
 	Arrow m_archerArrow[MAX_ARCHERS]; 
 
+	sf::Text m_message;
+	sf::Font m_font;
+
 	sf::Sprite m_background;
 	sf::Texture m_texture;
 
